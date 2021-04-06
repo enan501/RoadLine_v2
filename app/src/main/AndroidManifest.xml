@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RoadLine">
-        <activity android:name=".presentation.plan.PlanActivity"></activity>
+        <activity android:name=".presentation.plan.AddPlanActivity"></activity>
+        <activity android:name=".presentation.plan.PlanActivity" />
         <activity android:name=".presentation.splash.SplashActivity" />
         <activity android:name=".presentation.travelList.TravelListActivity">
             <intent-filter>
