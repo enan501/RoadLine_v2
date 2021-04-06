@@ -1,9 +1,8 @@
 package konkuksw.mobileprogramming2019.roadline.global
 
 import android.app.Application
-import androidx.room.Room
 import konkuksw.mobileprogramming2019.roadline.data.AppDatabase
-import konkuksw.mobileprogramming2019.roadline.data.TravelRepo
+import konkuksw.mobileprogramming2019.roadline.data.repository.TravelRepo
 
 class MyApplication: Application() {
     companion object{

@@ -1,4 +1,4 @@
-package konkuksw.mobileprogramming2019.roadline.data
+package konkuksw.mobileprogramming2019.roadline.data.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

@@ -1,9 +1,10 @@
-package konkuksw.mobileprogramming2019.roadline.data
+package konkuksw.mobileprogramming2019.roadline.data.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import konkuksw.mobileprogramming2019.roadline.data.entity.Currency
 
 @Dao
 interface CurrencyDao {

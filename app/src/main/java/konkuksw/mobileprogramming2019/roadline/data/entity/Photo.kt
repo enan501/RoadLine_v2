@@ -1,6 +1,8 @@
-package konkuksw.mobileprogramming2019.roadline.data
+package konkuksw.mobileprogramming2019.roadline.data.entity
 
-import androidx.room.*
+import androidx.room.Entity
+import androidx.room.ForeignKey
+import androidx.room.PrimaryKey
 import java.time.LocalDateTime
 
 @Entity(foreignKeys = [ForeignKey(
@@ -9,13 +11,9 @@ import java.time.LocalDateTime
     childColumns = arrayOf("dayId"),
     onDelete = ForeignKey.CASCADE)
 ])
-data class Money(
+data class Photo(
     @PrimaryKey(autoGenerate = true) val id: Int,
     val dayId: Int,
     var img: String,
-    var price: Double,
-    var category: String,
-    var dateTime: LocalDateTime,
-    var memo: String?,
-    @Embedded var currency: Currency
+    var dateTime: LocalDateTime
 )

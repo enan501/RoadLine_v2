@@ -1,7 +1,9 @@
-package konkuksw.mobileprogramming2019.roadline.data
+package konkuksw.mobileprogramming2019.roadline.data.repository
 
 import android.app.Application
-import konkuksw.mobileprogramming2019.roadline.MyApplication
+import konkuksw.mobileprogramming2019.roadline.data.entity.Travel
+import konkuksw.mobileprogramming2019.roadline.data.dao.TravelDao
+import konkuksw.mobileprogramming2019.roadline.global.MyApplication
 
 class TravelRepo(application: Application) {
     private val travelDao: TravelDao by lazy {

@@ -1,6 +1,7 @@
-package konkuksw.mobileprogramming2019.roadline.data
+package konkuksw.mobileprogramming2019.roadline.data.dao
 
 import androidx.room.*
+import konkuksw.mobileprogramming2019.roadline.data.entity.Travel
 
 @Dao
 interface TravelDao {

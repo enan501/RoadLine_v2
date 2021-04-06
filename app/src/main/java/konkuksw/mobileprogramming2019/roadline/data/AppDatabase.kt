@@ -5,6 +5,8 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import konkuksw.mobileprogramming2019.roadline.data.dao.*
+import konkuksw.mobileprogramming2019.roadline.data.entity.*
 
 @Database(entities = [Currency::class, Day::class, Money::class, Photo::class, Plan::class, Travel::class], version = 1)
 @TypeConverters(Converters::class)

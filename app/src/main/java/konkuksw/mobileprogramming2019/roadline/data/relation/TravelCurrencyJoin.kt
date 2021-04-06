@@ -1,7 +1,9 @@
-package konkuksw.mobileprogramming2019.roadline.data
+package konkuksw.mobileprogramming2019.roadline.data.relation
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import konkuksw.mobileprogramming2019.roadline.data.entity.Currency
+import konkuksw.mobileprogramming2019.roadline.data.entity.Travel
 
 @Entity(
     primaryKeys = ["playlistId","songId"],
