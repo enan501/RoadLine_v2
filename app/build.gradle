@@ -8,6 +8,10 @@ android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
+    buildFeatures {
+        dataBinding true
+    }
+
     defaultConfig {
         applicationId "konkuksw.mobileprogramming2019.roadline"
         minSdkVersion 26
@@ -44,6 +48,10 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
+    // viewmodel
+    implementation "androidx.activity:activity-ktx:1.2.2"
+
+    // room
     def room_version = "2.2.6"
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
