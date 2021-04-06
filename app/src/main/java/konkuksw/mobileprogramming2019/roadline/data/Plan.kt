@@ -6,7 +6,8 @@ import androidx.room.PrimaryKey
 @Entity(foreignKeys = [ForeignKey(
     entity = Day::class,
     parentColumns = arrayOf("id"),
-    childColumns = arrayOf("dayId"))
+    childColumns = arrayOf("dayId"),
+    onDelete = ForeignKey.CASCADE)
 ])
 data class Plan(
     @PrimaryKey(autoGenerate = true) val id: Int,

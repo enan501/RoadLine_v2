@@ -9,7 +9,8 @@ import java.time.LocalDate
 @Entity(foreignKeys = [ForeignKey(
     entity = Travel::class,
     parentColumns = arrayOf("id"),
-    childColumns = arrayOf("travelId"))
+    childColumns = arrayOf("travelId"),
+    onDelete = ForeignKey.CASCADE)
 ])
 data class Day(
     @PrimaryKey(autoGenerate = true) val id: Int,

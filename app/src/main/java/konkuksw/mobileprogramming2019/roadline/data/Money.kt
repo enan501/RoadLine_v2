@@ -6,7 +6,8 @@ import java.time.LocalDateTime
 @Entity(foreignKeys = [ForeignKey(
     entity = Day::class,
     parentColumns = arrayOf("id"),
-    childColumns = arrayOf("dayId"))
+    childColumns = arrayOf("dayId"),
+    onDelete = ForeignKey.CASCADE)
 ])
 data class Money(
     @PrimaryKey(autoGenerate = true) val id: Int,
