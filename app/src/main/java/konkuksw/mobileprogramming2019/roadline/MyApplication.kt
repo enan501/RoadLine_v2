@@ -10,15 +10,14 @@ class MyApplication: Application() {
         lateinit var db: AppDatabase
     }
 
+
     override fun onCreate() {
         super.onCreate()
-        connectDB()
-    }
-
-    private fun connectDB(){
         db = Room.databaseBuilder(
             applicationContext,
             AppDatabase::class.java, "database-name"
         ).build()
     }
+
+
 }

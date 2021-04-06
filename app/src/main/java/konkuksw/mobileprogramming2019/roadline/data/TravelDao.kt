@@ -18,4 +18,5 @@ interface TravelDao {
 
     @Delete
     fun delete(travel: Travel)
+
 }

@@ -14,8 +14,9 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 //        GlobalScope.launch(Dispatchers.IO) {
-//            MyApplication.db.travelDao().insertAll(Travel(0, "hi", LocalDate.now(), LocalDate.now(), "hihi"))
+////            MyApplication.db.travelDao().insertAll(Travel(0, "hi", LocalDate.now(), LocalDate.now(), "hihi"))
 //            var travels = MyApplication.db.travelDao().getAll()
+////            MyApplication.db.clearAllTables()
 //            Log.d("mytag", travels.toString())
 //        }
     }
