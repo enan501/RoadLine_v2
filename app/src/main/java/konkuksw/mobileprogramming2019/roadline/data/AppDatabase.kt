@@ -1,6 +1,8 @@
 package konkuksw.mobileprogramming2019.roadline.data
 
+import android.content.Context
 import androidx.room.Database
+import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 
@@ -13,4 +15,19 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun photoDao(): PhotoDao
     abstract fun planDao(): PlanDao
     abstract fun travelDao(): TravelDao
+
+    companion object {
+        private var INSTANCE: AppDatabase? = null
+
+        fun getInstance(context: Context): AppDatabase? {
+            return INSTANCE ?: synchronized(AppDatabase::class) {
+                INSTANCE ?: Room.databaseBuilder(context.applicationContext,
+                    AppDatabase::class.java, "roadline-db").build().also { INSTANCE = it }
+            }
+        }
+
+        fun destoryInstance() {
+            INSTANCE = null
+        }
+    }
 }

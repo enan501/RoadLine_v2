@@ -4,19 +4,19 @@ import android.app.Application
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import konkuksw.mobileprogramming2019.roadline.data.AppDatabase
+import konkuksw.mobileprogramming2019.roadline.data.TravelRepo
 
 class MyApplication: Application() {
     companion object{
-        lateinit var db: AppDatabase
+        var db: AppDatabase? = null
+        lateinit var travelRepo: TravelRepo
     }
 
 
     override fun onCreate() {
         super.onCreate()
-        db = Room.databaseBuilder(
-            applicationContext,
-            AppDatabase::class.java, "database-name"
-        ).build()
+        db = AppDatabase.getInstance(applicationContext)
+        travelRepo = TravelRepo(this)
     }
 
 
