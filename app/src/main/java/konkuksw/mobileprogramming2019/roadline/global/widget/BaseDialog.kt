@@ -9,6 +9,8 @@ import android.graphics.drawable.ColorDrawable
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
+import androidx.databinding.DataBindingUtil
+import konkuksw.mobileprogramming2019.roadline.R
 import konkuksw.mobileprogramming2019.roadline.databinding.DialogBaseBinding
 
 open class BaseDialog(context: Context) : Dialog(context) {
@@ -20,10 +22,12 @@ open class BaseDialog(context: Context) : Dialog(context) {
         open fun create(): Builder {
             dialog.create()
             dialog.setContentView(dialog.binding.root)
+
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             var size = Point()
             dialog.window!!.windowManager.defaultDisplay.getSize(size)
             dialog.window!!.setLayout((size.x * 0.872f).toInt(), size.y)
+
             return this
         }
         

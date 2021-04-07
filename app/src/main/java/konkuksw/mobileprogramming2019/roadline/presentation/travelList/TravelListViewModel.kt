@@ -16,11 +16,9 @@ class TravelListViewModel : BaseViewModel() {
     fun addTravel(travel: Travel){
         viewModelScope.launch(Dispatchers.IO) {
             MyApplication.travelRepo.insert(travel)
-            Log.d("TravelViewModel", travels.value.toString())
         }
     }
 
     fun editTravel(travel: Travel){
-        Log.d("TravelViewModel", "edit" + travel.title)
     }
 }
