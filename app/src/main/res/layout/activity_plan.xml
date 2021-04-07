@@ -12,5 +12,23 @@
         android:layout_height="match_parent"
         tools:context=".presentation.plan.PlanActivity">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                style="@style/ToolbarTextView"
+                tools:layout_editor_absoluteX="154dp"
+                tools:layout_editor_absoluteY="9dp"
+                tools:text="제주도" />
+        </androidx.appcompat.widget.Toolbar>
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
