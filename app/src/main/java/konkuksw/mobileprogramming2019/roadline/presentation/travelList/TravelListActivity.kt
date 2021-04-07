@@ -1,5 +1,6 @@
 package konkuksw.mobileprogramming2019.roadline.presentation.travelList
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
@@ -9,6 +10,7 @@ import konkuksw.mobileprogramming2019.roadline.data.entity.Travel
 import konkuksw.mobileprogramming2019.roadline.databinding.ActivityTravelListBinding
 import konkuksw.mobileprogramming2019.roadline.global.widget.BaseDialog
 import konkuksw.mobileprogramming2019.roadline.presentation.base.BaseActivity
+import konkuksw.mobileprogramming2019.roadline.presentation.plan.PlanActivity
 import java.time.LocalDate
 
 class TravelListActivity : BaseActivity<ActivityTravelListBinding>(
@@ -21,6 +23,9 @@ class TravelListActivity : BaseActivity<ActivityTravelListBinding>(
         binding.viewModel = viewModel
         binding.rvTravel.adapter = TravelListAdapter(object : TravelListAdapter.OnItemClickListener {
             override fun onItemClick(travel: Travel) {
+                val intent = Intent(this@TravelListActivity, PlanActivity::class.java)
+                intent.putExtra("travelId", travel.id)
+                startActivity(intent)
             }
 
             override fun onEditClick(travel: Travel) {
@@ -43,7 +48,7 @@ class TravelListActivity : BaseActivity<ActivityTravelListBinding>(
             dialog.create()
                     .setTitle("추가")
                     .setOkButton("추가") {
-                        viewModel.addTravel(Travel(title = "배낭여행", dateStart = LocalDate.MIN, dateEnd = LocalDate.MAX))
+                        viewModel.addTravel(Travel(title = "배낭여행", dateStart = LocalDate.now(), dateEnd = LocalDate.now().plusDays(6)))
                         dialog.dismissDialog()
                     }
                     .show()

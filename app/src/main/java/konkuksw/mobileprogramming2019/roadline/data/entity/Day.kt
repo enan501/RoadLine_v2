@@ -12,9 +12,8 @@ import java.time.LocalDate
     onDelete = ForeignKey.CASCADE)
 ])
 data class Day(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int? = null,
     val travelId: Int,
-    val dayNum: Int,
     var date: LocalDate,
     var img: String
 )

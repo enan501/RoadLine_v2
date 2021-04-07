@@ -1,26 +1,36 @@
 package konkuksw.mobileprogramming2019.roadline.presentation.plan
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.recyclerview.widget.RecyclerView
 import konkuksw.mobileprogramming2019.roadline.R
 import konkuksw.mobileprogramming2019.roadline.databinding.ActivityPlanBinding
 import konkuksw.mobileprogramming2019.roadline.presentation.base.BaseActivity
 
 class PlanActivity : BaseActivity<ActivityPlanBinding>(
-    R.layout.activity_splash
+    R.layout.activity_plan
 ) {
     private val viewModel:PlanViewModel by viewModels()
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initView()
+    private val allDateIcon: TextView by lazy {
+        binding.btnAll.findViewById(R.id.tvDateIcon)
     }
 
-    fun initView() {
+    override fun initView() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        binding.btnAll.setOnClickListener {
+            allDateIcon.isSelected = true
+            allDateIcon.background = resources.getDrawable(R.drawable.background_circle, null)
+        }
+        binding.rvDates.adapter
+        val travelId = intent.getIntExtra("travelId", -1)
+        viewModel.getDataFromDB(travelId)
+//        viewModel.travelWithDays.observe(this, {
+//        })
 
     }
 
