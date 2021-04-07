@@ -1,6 +1,7 @@
 package konkuksw.mobileprogramming2019.roadline.data.repository
 
 import android.app.Application
+import androidx.lifecycle.LiveData
 import konkuksw.mobileprogramming2019.roadline.data.entity.Travel
 import konkuksw.mobileprogramming2019.roadline.data.dao.TravelDao
 import konkuksw.mobileprogramming2019.roadline.global.MyApplication
@@ -10,11 +11,11 @@ class TravelRepo(application: Application) {
         MyApplication.db!!.travelDao()
     }
 
-    private val travels: List<Travel> by lazy {
+    private val travels: LiveData<List<Travel>> by lazy {
         travelDao.getAll()
     }
 
-    fun getAll(): List<Travel> {
+    fun getAll(): LiveData<List<Travel>> {
         return travels
     }
 

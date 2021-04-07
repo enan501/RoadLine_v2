@@ -6,9 +6,9 @@ import java.time.LocalDate
 
 @Entity
 data class Travel(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int? = null,
     var title: String,
     var dateStart: LocalDate,
     var dateEnd: LocalDate,
-    var img: String
+    var img: String?= null
 )
