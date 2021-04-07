@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="konkuksw.mobileprogramming2019.roadline.presentation.travelList.TravelListViewModel" />
     </data>
 
     <androidx.drawerlayout.widget.DrawerLayout
@@ -87,10 +89,14 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvTravel"
+                    android:background="@color/grayCC"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginHorizontal="5dp"
                     android:clipToPadding="false"
+                    app:listData="@{viewModel.travels}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    android:orientation="vertical"
                     tools:listitem="@layout/item_travel"
                     android:paddingTop="10dp"
                     android:paddingBottom="80dp" />
@@ -111,7 +117,7 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/ML_addListBtn"
+                android:id="@+id/btnAddTravel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom|end"

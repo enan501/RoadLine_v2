@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RoadLine</string>
+    <string name="travel_date">%s ~ %s</string>
 </resources>
