@@ -13,14 +13,15 @@ import androidx.fragment.app.Fragment
 abstract class BaseFragment<T : ViewDataBinding>(
     @LayoutRes private val layoutResourceId: Int) : Fragment(){
 
-    lateinit var viewDataBinding: T
+    lateinit var binding: T
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        viewDataBinding = DataBindingUtil.inflate(inflater,layoutResourceId, container, false)
-        return viewDataBinding.root
+        binding = DataBindingUtil.inflate(inflater,layoutResourceId, container, false)
+        binding.lifecycleOwner = this
+        return binding.root
     }
 
 }
