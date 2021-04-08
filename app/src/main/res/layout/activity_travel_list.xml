@@ -89,10 +89,10 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvTravel"
-                    android:background="@color/grayCC"
+                    android:background="@color/white"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginHorizontal="5dp"
+                    android:paddingHorizontal="5dp"
                     android:clipToPadding="false"
                     app:listData="@{viewModel.travels}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
