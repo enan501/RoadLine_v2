@@ -40,7 +40,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvDates"
-            app:listData="@{viewModel.days}"
+            android:orientation="horizontal"
+            app:listData="@{viewModel.travelWithDays}"
             tools:listitem="@layout/item_travel"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_width="0dp"

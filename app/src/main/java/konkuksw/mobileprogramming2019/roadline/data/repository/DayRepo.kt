@@ -4,6 +4,8 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import konkuksw.mobileprogramming2019.roadline.data.dao.DayDao
 import konkuksw.mobileprogramming2019.roadline.data.entity.Day
+import konkuksw.mobileprogramming2019.roadline.data.relation.DayWithPlans
+import konkuksw.mobileprogramming2019.roadline.data.relation.TravelWithDays
 import konkuksw.mobileprogramming2019.roadline.global.MyApplication
 
 class DayRepo(application: Application) {
@@ -28,5 +30,9 @@ class DayRepo(application: Application) {
 
     suspend fun delete(day: Day) {
         return dayDao.delete(day)
+    }
+
+    fun getDayWithPlans(dayId: Int): LiveData<DayWithPlans> {
+        return dayDao.getDayWithPlans(dayId)
     }
 }

@@ -1,9 +1,11 @@
 package konkuksw.mobileprogramming2019.roadline.global
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 import konkuksw.mobileprogramming2019.roadline.data.AppDatabase
 import konkuksw.mobileprogramming2019.roadline.data.repository.DayRepo
 import konkuksw.mobileprogramming2019.roadline.data.repository.TravelRepo
+
 
 class MyApplication: Application() {
     companion object{
