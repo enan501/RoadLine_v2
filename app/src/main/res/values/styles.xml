@@ -1,33 +1,44 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:textColor">@color/black33</item>
-        <item name="toolbarNavigationButtonStyle">@style/toolbarNavigationButtonStyle</item>
-    </style>
-
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
+    <style name="AppTheme" parent="Theme.RoadLine"/>
 
     <!--기본폰트 변경-->
-    <style name="TextViewStyle" parent="android:Widget.TextView">
-        <item name="android:fontFamily">@font/notosanskr</item>
-        <item name="android:textColor">@color/black33</item>
+    <style name="TextViewStyle" parent="@android:style/Widget.DeviceDefault.TextView">
+<!--        <item name="android:fontFamily">@font/notosanskr</item>-->
+        <item name="android:textColor">@color/black</item>
+        <item name="android:gravity">center</item>
     </style>
 
-    <style name="ButtonStyle" parent="android:Widget.Button">
+    <style name="ButtonStyle" parent="@android:style/Widget.DeviceDefault.Button.Borderless">
+<!--        <item name="android:fontFamily">@font/notosanskr</item>-->
+    </style>
+
+    <style name="EditTextStyle" parent="@android:style/Widget.DeviceDefault.EditText">
         <item name="android:fontFamily">@font/notosanskr</item>
     </style>
 
-    <style name="EditTextStyle" parent="android:Widget.EditText">
+    <style name="RadioButtonStyle" parent="@android:style/Widget.DeviceDefault.CompoundButton.RadioButton">
         <item name="android:fontFamily">@font/notosanskr</item>
     </style>
+
+    <style name="CheckboxStyle" parent="@android:style/Widget.DeviceDefault.CompoundButton.CheckBox">
+        <item name="android:fontFamily">@font/notosanskr</item>
+    </style>
+    
+    <style name="ToolbarTextView" parent="@style/TextViewStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">23sp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:paddingLeft">8dp</item>
+    </style>
+
+
+
+
 
 <style name="Splash"
     parent="AppTheme">

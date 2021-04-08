@@ -3,6 +3,7 @@ package konkuksw.mobileprogramming2019.roadline.data.dao
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import konkuksw.mobileprogramming2019.roadline.data.entity.Travel
+import konkuksw.mobileprogramming2019.roadline.data.relation.TravelWithDays
 
 @Dao
 interface TravelDao {
@@ -10,16 +11,20 @@ interface TravelDao {
     fun getAll(): LiveData<List<Travel>>
 
     @Query("SELECT * FROM travel WHERE id = :travelId")
-    fun getTravelById(travelId: Int): Travel
+    suspend fun getTravelById(travelId: Int): Travel
 
     @Insert
-    fun insert(travel: Travel)
+    suspend fun insert(travel: Travel): Long
 
     @Delete
-    fun delete(travel: Travel)
+    suspend fun delete(travel: Travel)
 
     @Update
-    fun updateTravel(travel: Travel)
+    suspend fun updateTravel(travel: Travel)
+
+    @Transaction
+    @Query("SELECT * FROM travel WHERE id = :travelId")
+    fun getTravelWithDays(travelId: Int): LiveData<TravelWithDays>
 
 
 }

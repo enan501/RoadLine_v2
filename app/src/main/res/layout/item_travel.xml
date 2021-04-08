@@ -12,6 +12,7 @@
             type="konkuksw.mobileprogramming2019.roadline.presentation.travelList.TravelListAdapter.OnItemClickListener" />
     </data>
     <androidx.cardview.widget.CardView
+        android:onClick="@{()->onItemClickListener.onItemClick(item)}"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_margin="10dp"
