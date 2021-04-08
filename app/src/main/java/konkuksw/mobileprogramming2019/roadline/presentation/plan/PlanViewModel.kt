@@ -13,7 +13,7 @@ class PlanViewModel : BaseViewModel() {
     lateinit var days: List<Day>
     lateinit var travel: Travel
 
-    fun getDataFromDB(travelId: Int){
+    fun getAllDataFromDB(travelId: Int){
         travelWithDays = MyApplication.travelRepo.getTravelWithDays(travelId)
 
     }

@@ -13,9 +13,7 @@ class DayListAdapter(private val onItemClickListener: OnItemClickListener): List
     DayDiffUtil()
 ) {
     interface OnItemClickListener {
-        fun onItemClick(day: Day)
-        fun onEditClick(day: Day)
-        fun onDeleteClick(day: Day)
+        fun onItemClick(day: Day?)
     }
 
     inner class DayViewHolder(var binding: ItemDateButtonBinding): RecyclerView.ViewHolder(binding.root) {

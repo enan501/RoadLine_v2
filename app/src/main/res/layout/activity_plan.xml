@@ -27,8 +27,6 @@
             <TextView
                 android:id="@+id/tvTitle"
                 style="@style/ToolbarTextView"
-                tools:layout_editor_absoluteX="154dp"
-                tools:layout_editor_absoluteY="9dp"
                 tools:text="제주도" />
         </androidx.appcompat.widget.Toolbar>
 
@@ -42,6 +40,8 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvDates"
+            app:listData="@{viewModel.days}"
+            tools:listitem="@layout/item_travel"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_width="0dp"
             android:layout_height="0dp"

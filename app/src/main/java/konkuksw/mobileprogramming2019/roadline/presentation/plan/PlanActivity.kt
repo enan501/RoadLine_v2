@@ -6,31 +6,50 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.TextView
 import androidx.activity.viewModels
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.recyclerview.widget.RecyclerView
 import konkuksw.mobileprogramming2019.roadline.R
+import konkuksw.mobileprogramming2019.roadline.data.entity.Day
 import konkuksw.mobileprogramming2019.roadline.databinding.ActivityPlanBinding
 import konkuksw.mobileprogramming2019.roadline.presentation.base.BaseActivity
+import konkuksw.mobileprogramming2019.roadline.presentation.travelList.TravelListAdapter
 
 class PlanActivity : BaseActivity<ActivityPlanBinding>(
     R.layout.activity_plan
 ) {
     private val viewModel:PlanViewModel by viewModels()
-    private val allDateIcon: TextView by lazy {
-        binding.btnAll.findViewById(R.id.tvDateIcon)
+    private val travelId by lazy {
+        intent.getIntExtra("travelId", -1)
     }
+    private var dateIconSelected: MutableLiveData<Boolean> = MutableLiveData()
 
     override fun initView() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding.btnAll.setOnClickListener {
-            allDateIcon.isSelected = true
-            allDateIcon.background = resources.getDrawable(R.drawable.background_circle, null)
+        binding.btnAll.tvDateIcon.isSelected = true
+        dateIconSelected.value = binding.btnAll.tvDateIcon.isSelected
+        dateIconSelected.observe(this, { isSelected ->
+            if(isSelected){
+                viewModel.getAllDataFromDB(travelId)
+                viewModel.travelWithDays.observe(this@PlanActivity, {
+                    it.days
+                })
+            }
+        })
+
+        binding.btnAll.onItemClickListener = object : DayListAdapter.OnItemClickListener{
+            override fun onItemClick(day: Day?) {
+                binding.btnAll.tvDateIcon.isSelected = true
+            }
         }
-        binding.rvDates.adapter
-        val travelId = intent.getIntExtra("travelId", -1)
-        viewModel.getDataFromDB(travelId)
-//        viewModel.travelWithDays.observe(this, {
-//        })
+
+        binding.rvDates.adapter = DayListAdapter(object : DayListAdapter.OnItemClickListener {
+            override fun onItemClick(day: Day?) {
+
+            }
+        })
+
 
     }
 
