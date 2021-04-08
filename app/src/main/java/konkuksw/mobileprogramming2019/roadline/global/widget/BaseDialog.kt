@@ -34,6 +34,7 @@ open class BaseDialog(context: Context) : Dialog(context) {
 
         fun setTitle(text: String): Builder {
             dialog.binding.okText = text
+            dialog.binding.tvDialogTitle.visibility = View.VISIBLE
             return this
         }
 
