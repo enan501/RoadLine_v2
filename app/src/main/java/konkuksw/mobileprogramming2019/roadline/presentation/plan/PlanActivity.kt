@@ -1,23 +1,14 @@
 package konkuksw.mobileprogramming2019.roadline.presentation.plan
 
-import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TextView
-import androidx.activity.viewModels
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
-import androidx.recyclerview.widget.RecyclerView
-import dagger.hilt.android.AndroidEntryPoint
 import konkuksw.mobileprogramming2019.roadline.R
 import konkuksw.mobileprogramming2019.roadline.data.entity.Day
 import konkuksw.mobileprogramming2019.roadline.databinding.ActivityPlanBinding
 import konkuksw.mobileprogramming2019.roadline.global.util.HasParamViewModelFactory
 import konkuksw.mobileprogramming2019.roadline.presentation.base.BaseActivity
-import konkuksw.mobileprogramming2019.roadline.presentation.travelList.TravelListAdapter
 
 class PlanActivity : BaseActivity<ActivityPlanBinding>(
     R.layout.activity_plan
@@ -31,8 +22,7 @@ class PlanActivity : BaseActivity<ActivityPlanBinding>(
 
     override fun initView() {
         viewModel = ViewModelProvider(this, HasParamViewModelFactory(travelId)).get(PlanViewModel::class.java)
-        viewModel.getPlansByDayId(null)
-
+        binding.viewModel = viewModel
 
 
         setSupportActionBar(binding.toolbar)
@@ -59,8 +49,12 @@ class PlanActivity : BaseActivity<ActivityPlanBinding>(
             }
         })
         viewModel.travelWithDays.observe(this){
-            (binding.rvDates.adapter as DayListAdapter).submitList(it.days)
-
+            viewModel.getPlansByDayId(null)
+        }
+        viewModel.travelWithPlans.observe(this){
+            it.daysWithPlans.forEach { dayWithPlans ->
+                dayWithPlans.plans
+            }
         }
     }
 

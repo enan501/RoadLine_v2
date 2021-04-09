@@ -13,17 +13,15 @@ import konkuksw.mobileprogramming2019.roadline.presentation.base.BaseViewModel
 class PlanViewModel(val travelId: Int) : BaseViewModel() {
     var travelWithDays = MyApplication.travelRepo.getTravelWithDays(travelId)
     var dayWithPlansList: ArrayList<LiveData<DayWithPlans>> = arrayListOf()
-
+    var travelWithPlans = MyApplication.travelRepo.getTravelWithDaysAndPlans(travelId)
 
     fun getPlansByDayId(dayId: Int?) {
         dayWithPlansList.clear()
         if (dayId == null) {
             // 모든 day
-            val days = travelWithDays.value?.days
-            days?.let {
-                for (day in days) {
+
+            travelWithDays.value?.days?.forEach{day ->
                     dayWithPlansList.add(MyApplication.dayRepo.getDayWithPlans(day.id!!))
-                }
             }
         }
         else {

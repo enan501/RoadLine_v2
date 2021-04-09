@@ -1,14 +1,14 @@
 package konkuksw.mobileprogramming2019.roadline.data.repository
 
 import android.app.Application
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.room.Transaction
 import konkuksw.mobileprogramming2019.roadline.data.dao.DayDao
-import konkuksw.mobileprogramming2019.roadline.data.entity.Travel
 import konkuksw.mobileprogramming2019.roadline.data.dao.TravelDao
 import konkuksw.mobileprogramming2019.roadline.data.entity.Day
+import konkuksw.mobileprogramming2019.roadline.data.entity.Travel
 import konkuksw.mobileprogramming2019.roadline.data.relation.TravelWithDays
+import konkuksw.mobileprogramming2019.roadline.data.relation.TravelWithDaysAndPlans
 import konkuksw.mobileprogramming2019.roadline.global.MyApplication
 import konkuksw.mobileprogramming2019.roadline.global.extension.daysBetween
 
@@ -53,5 +53,9 @@ class TravelRepo(application: Application) {
 
     fun getTravelWithDays(travelId: Int): LiveData<TravelWithDays> {
         return travelDao.getTravelWithDays(travelId)
+    }
+
+    fun getTravelWithDaysAndPlans(travelId: Int): LiveData<TravelWithDaysAndPlans> {
+        return travelDao.getTravelWithDaysAndPlans(travelId)
     }
 }
