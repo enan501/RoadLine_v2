@@ -9,8 +9,8 @@ import android.graphics.drawable.ColorDrawable
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
-import androidx.databinding.DataBindingUtil
-import konkuksw.mobileprogramming2019.roadline.R
+import android.view.Window
+import androidx.constraintlayout.widget.ConstraintLayout
 import konkuksw.mobileprogramming2019.roadline.databinding.DialogBaseBinding
 
 open class BaseDialog(context: Context) : Dialog(context) {
@@ -22,18 +22,21 @@ open class BaseDialog(context: Context) : Dialog(context) {
         open fun create(): Builder {
             dialog.create()
             dialog.setContentView(dialog.binding.root)
-
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             var size = Point()
             dialog.window!!.windowManager.defaultDisplay.getSize(size)
-            dialog.window!!.setLayout((size.x * 0.872f).toInt(), size.y)
-
+            dialog.window!!.attributes.let{
+                it.height = ConstraintLayout.LayoutParams.WRAP_CONTENT
+                it.width = (size.x * 0.872f).toInt()
+            }
+            dialog.binding.btnClose.setOnClickListener { dialog.dismiss() }
             return this
         }
         
 
         fun setTitle(text: String): Builder {
-            dialog.binding.okText = text
+            dialog.binding.title = text
+            dialog.binding.tvDialogTitle.visibility = View.VISIBLE
             return this
         }
 
