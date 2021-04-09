@@ -4,6 +4,8 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import konkuksw.mobileprogramming2019.roadline.data.entity.Day
 import konkuksw.mobileprogramming2019.roadline.data.entity.Travel
+import konkuksw.mobileprogramming2019.roadline.data.relation.DayWithPlans
+import konkuksw.mobileprogramming2019.roadline.data.relation.TravelWithDays
 
 @Dao
 interface DayDao {
@@ -24,4 +26,9 @@ interface DayDao {
 
     @Insert
     fun insert(day: Day)
+
+    @Transaction
+    @Query("SELECT * FROM day WHERE id = :dayId")
+    fun getDayWithPlans(dayId: Int): LiveData<DayWithPlans>
+
 }

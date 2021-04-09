@@ -1,15 +1,15 @@
 package konkuksw.mobileprogramming2019.roadline.data.relation
 
-import androidx.lifecycle.LiveData
 import androidx.room.Embedded
 import androidx.room.Relation
 import konkuksw.mobileprogramming2019.roadline.data.entity.Day
+import konkuksw.mobileprogramming2019.roadline.data.entity.Plan
 import konkuksw.mobileprogramming2019.roadline.data.entity.Travel
 
-data class TravelWithDays(
-    @Embedded val travel: Travel,
+data class DayWithPlans (
+    @Embedded val day: Day,
     @Relation(
-              parentColumn = "id",
-              entityColumn = "travelId"
-        )
-        val days: List<Day>)
+        parentColumn = "id",
+        entityColumn = "dayId"
+    )
+    val plans: List<Plan>)

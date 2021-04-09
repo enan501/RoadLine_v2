@@ -4,6 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
+            name="dayNum"
+            type="Integer" />
+        <variable
+            name="selected"
+            type="Boolean" />
+        <variable
             name="item"
             type="konkuksw.mobileprogramming2019.roadline.data.entity.Day" />
         <variable
@@ -11,18 +17,19 @@
             type="konkuksw.mobileprogramming2019.roadline.presentation.plan.DayListAdapter.OnItemClickListener" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:onClick="@{()->onItemClickListener.onItemClick(item)}"
+        android:onClick="@{() -> onItemClickListener.onItemClick(item)}"
         android:layout_width="50dp"
         android:padding="3dp"
         android:layout_height="wrap_content">
 
         <TextView
-            android:background="@drawable/selector_date_icon"
+
+            android:background="@{selected ? @drawable/background_circle : null}"
             android:id="@+id/tvDateIcon"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:text="A"
-            android:textColor="@color/selector_date_icon_color"
+            android:text="@{item != null ? String.valueOf(dayNum) : @string/a}"
+            android:textColor="@{selected ? @color/white : @color/black}"
             android:gravity="center"
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -40,6 +47,6 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tvDateIcon"
-            android:text="ALL" />
+            android:text="@{item != null ? String.valueOf(item.date.monthValue) : @string/all}" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

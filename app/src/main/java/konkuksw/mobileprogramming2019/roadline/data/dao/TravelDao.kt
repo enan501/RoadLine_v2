@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import konkuksw.mobileprogramming2019.roadline.data.entity.Travel
 import konkuksw.mobileprogramming2019.roadline.data.relation.TravelWithDays
+import konkuksw.mobileprogramming2019.roadline.data.relation.TravelWithDaysAndPlans
 
 @Dao
 interface TravelDao {
@@ -26,5 +27,8 @@ interface TravelDao {
     @Query("SELECT * FROM travel WHERE id = :travelId")
     fun getTravelWithDays(travelId: Int): LiveData<TravelWithDays>
 
+    @Transaction
+    @Query("SELECT * FROM travel WHERE id = :travelId")
+    fun getTravelWithDaysAndPlans(travelId: Int): LiveData<TravelWithDaysAndPlans>
 
 }
