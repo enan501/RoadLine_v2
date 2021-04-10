@@ -3,7 +3,6 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
-
 }
 
 android {
@@ -23,7 +22,6 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
-        // ...
         // Set the properties within `local.properties` into a `Properties` class so that values
         // within `local.properties` (e.g. Maps API key) are accessible in this file.
         Properties properties = new Properties()
@@ -82,4 +80,5 @@ dependencies {
 
     // google map
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
+
 }

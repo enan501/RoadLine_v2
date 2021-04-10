@@ -36,12 +36,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:viewModel ="@{viewModel}"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvDates"
             android:orientation="horizontal"
-            app:listData="@{viewModel.travelWithDays}"
+            app:listData="@{viewModel.travelWithDaysAndPlans}"
             tools:listitem="@layout/item_travel"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_width="0dp"
