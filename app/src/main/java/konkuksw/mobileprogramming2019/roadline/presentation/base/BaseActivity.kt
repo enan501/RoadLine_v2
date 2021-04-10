@@ -16,7 +16,9 @@ abstract class BaseActivity<T : ViewDataBinding>(
         binding = DataBindingUtil.setContentView(this, layoutResourceId)
         binding.lifecycleOwner = this
         initView()
+        setObserve()
     }
 
     open fun initView() {}
+    open fun setObserve() {}
 }

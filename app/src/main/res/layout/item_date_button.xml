@@ -7,8 +7,8 @@
             name="dayNum"
             type="Integer" />
         <variable
-            name="selected"
-            type="Boolean" />
+            name="viewModel"
+            type="konkuksw.mobileprogramming2019.roadline.presentation.plan.PlanViewModel" />
         <variable
             name="item"
             type="konkuksw.mobileprogramming2019.roadline.data.entity.Day" />
@@ -17,19 +17,19 @@
             type="konkuksw.mobileprogramming2019.roadline.presentation.plan.DayListAdapter.OnItemClickListener" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:onClick="@{() -> onItemClickListener.onItemClick(item)}"
+        android:onClick="@{() -> onItemClickListener.onItemClick(dayNum)}"
         android:layout_width="50dp"
         android:padding="3dp"
         android:layout_height="wrap_content">
 
         <TextView
-
-            android:background="@{selected ? @drawable/background_circle : null}"
+            android:text="@{item != null ? String.valueOf(dayNum) : @string/a}"
+            app:setSelectedDayNum="@{viewModel.selectedDay}"
+            android:background="@drawable/selector_date_icon"
             android:id="@+id/tvDateIcon"
             android:layout_width="45dp"
             android:layout_height="45dp"
-            android:text="@{item != null ? String.valueOf(dayNum) : @string/a}"
-            android:textColor="@{selected ? @color/white : @color/black}"
+            android:textColor="@color/selector_date_icon_color"
             android:gravity="center"
             android:textSize="22sp"
             app:layout_constraintEnd_toEndOf="parent"

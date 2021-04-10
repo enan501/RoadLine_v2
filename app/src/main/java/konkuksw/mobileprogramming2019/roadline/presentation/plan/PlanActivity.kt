@@ -19,81 +19,48 @@ class PlanActivity : BaseActivity<ActivityPlanBinding>(
 ) {
     private lateinit var viewModel:PlanViewModel
 
-    private val travelId by lazy {
-        intent.getIntExtra("travelId", -1)
-    }
-    private var dateIconSelected: MutableLiveData<Boolean> = MutableLiveData()
-
     private val planFragments = arrayListOf<Fragment>(
         VerticalPlanFragment(),
         HorizontalPlanFragment(),
         MapPlanFragment()
     )
+    private val travelId by lazy {
+        intent.getIntExtra("travelId", -1)
+    }
+    private val onDayClickListener = object : DayListAdapter.OnItemClickListener {
+        override fun onItemClick(dayNum: Int?) {
+            viewModel.selectedDay.postValue(dayNum)
+            viewModel.setPlans(dayNum)
+        }
+    }
+
     override fun initView() {
         viewModel = ViewModelProvider(this, HasParamViewModelFactory(travelId)).get(PlanViewModel::class.java)
         binding.viewModel = viewModel
 
-
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        binding.btnAll.tvDateIcon.isSelected = true
-        dateIconSelected.value = binding.btnAll.tvDateIcon.isSelected
-        dateIconSelected.observe(this, { isSelected ->
-            if(isSelected){
-                viewModel.getPlansByDayId(null)
-            }
-        })
 
-        binding.btnAll.onItemClickListener = object : DayListAdapter.OnItemClickListener{
-            override fun onItemClick(day: Day?) {
-                binding.btnAll.tvDateIcon.isSelected = true
-            }
-        }
-
-        binding.rvDates.adapter = DayListAdapter(object : DayListAdapter.OnItemClickListener {
-            override fun onItemClick(day: Day?) {
-                viewModel.getPlansByDayId(day?.id)
-            }
-        })
-        viewModel.travelWithDays.observe(this){
-            viewModel.getPlansByDayId(null)
-        }
-        viewModel.travelWithPlans.observe(this){
-            it.daysWithPlans.forEach { dayWithPlans ->
-                dayWithPlans.plans
-            }
-        }
-
+        binding.btnAll.onItemClickListener = onDayClickListener
+        binding.rvDates.adapter = DayListAdapter(viewModel, this, onDayClickListener)
 
         binding.vpPlans.adapter = PlanViewPagerAdapter(planFragments, this)
         TabLayoutMediator(binding.tabs,binding.vpPlans){tab, position ->
             tab.icon = when(position){
-                0->{
-                    ContextCompat.getDrawable(this,R.drawable.tab_list)}
-                1->{
-                    ContextCompat.getDrawable(this,R.drawable.tab_timeline)}
-                else->{
-                    ContextCompat.getDrawable(this,R.drawable.tab_map)}
+                0->{ ContextCompat.getDrawable(this,R.drawable.tab_list)}
+                1->{ ContextCompat.getDrawable(this,R.drawable.tab_timeline)}
+                else->{ ContextCompat.getDrawable(this,R.drawable.tab_map)}
             }
+            tab.view.alpha = 0.4f
         }.attach()
-        for(i in 0..2)
-            binding.tabs.getTabAt(i)?.apply{view.alpha = 0.4F}
+
         binding.tabs.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
-            override fun onTabSelected(tab: TabLayout.Tab?) {
-                tab?.view?.alpha = 1F
-            }
-
-            override fun onTabUnselected(tab: TabLayout.Tab?) {
-                tab?.view?.alpha = 0.4F
-            }
-
-            override fun onTabReselected(tab: TabLayout.Tab?) {
-                tab?.view?.alpha = 1F
-            }
-
+            override fun onTabSelected(tab: TabLayout.Tab?) { tab?.view?.alpha = 1f }
+            override fun onTabUnselected(tab: TabLayout.Tab?) { tab?.view?.alpha = 0.4f }
+            override fun onTabReselected(tab: TabLayout.Tab?) { tab?.view?.alpha = 1f }
         })
-
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val menuInflater = menuInflater
