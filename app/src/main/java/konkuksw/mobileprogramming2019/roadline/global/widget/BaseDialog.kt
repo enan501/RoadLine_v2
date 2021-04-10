@@ -14,9 +14,10 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import konkuksw.mobileprogramming2019.roadline.databinding.DialogBaseBinding
 
 open class BaseDialog(context: Context) : Dialog(context) {
-    val binding: DialogBaseBinding by lazy{
+    open val binding: DialogBaseBinding by lazy{
         DialogBaseBinding.inflate(LayoutInflater.from(context))
     }
+
     open class Builder(private val mContext: Context) {
         open val dialog = BaseDialog(mContext)
         open fun create(): Builder {
