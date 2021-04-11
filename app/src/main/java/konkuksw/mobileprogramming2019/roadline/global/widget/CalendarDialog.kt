@@ -33,6 +33,13 @@ class CalendarDialog (context: Context) : Dialog(context) {
         private var startDate: LocalDate? = null
         private var endDate: LocalDate? = null
 
+        fun setStartDate(date: LocalDate) {
+            startDate = date
+        }
+
+        fun setEndDate(date: LocalDate) {
+            endDate = date
+        }
 
         val dialog = CalendarDialog(mContext)
         fun create(): Builder {

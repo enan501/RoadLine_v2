@@ -13,6 +13,11 @@ fun daysBetween(startDay: LocalDate, endDay: LocalDate): Int {
     return startDay.until(endDay).days
 }
 
+fun periodToString(startDay: LocalDate, endDay: LocalDate): String{
+    val dateFormat = DateTimeFormatter.ofPattern("yyyy.MM.dd (E)")
+    return startDay.format(dateFormat) + " - " + endDay.format(dateFormat)
+}
+
 internal fun TextView.setTextColorRes(@ColorRes color: Int) = setTextColor(context.getColorCompat(color))
 internal fun Context.getDrawableCompat(@DrawableRes drawable: Int) = ContextCompat.getDrawable(this, drawable)
 internal fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getColor(this, color)

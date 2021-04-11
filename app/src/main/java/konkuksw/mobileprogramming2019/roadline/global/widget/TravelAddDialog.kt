@@ -13,6 +13,7 @@ import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout
 import konkuksw.mobileprogramming2019.roadline.data.entity.Travel
 import konkuksw.mobileprogramming2019.roadline.databinding.DialogTravelAddBinding
+import konkuksw.mobileprogramming2019.roadline.global.extension.periodToString
 import konkuksw.mobileprogramming2019.roadline.presentation.travelList.TravelListViewModel
 import java.time.LocalDate
 
@@ -55,13 +56,18 @@ class TravelAddDialog(context: Context): Dialog(context) {
         }
 
         private fun makeCalendarDialog() {
-            var dialog = CalendarDialog.Builder(mContext).create()
-            dialog.setButtonOk{
-                dateStart = dialog.getStartDate()
-                dateEnd = dialog.getEndDate()
-                dialog.dismissDialog()
+            val calendarDialog = CalendarDialog.Builder(mContext).create()
+            calendarDialog.setButtonOk{
+                dateStart = calendarDialog.getStartDate()
+                dateEnd = calendarDialog.getEndDate()
+                calendarDialog.dismissDialog()
+                if (dateStart != null && dateEnd != null) {
+                    dialog.binding.tvDatePick.text = periodToString(dateStart!!, dateEnd!!)
+                }
             }
-            dialog.show()
+            dateStart?.let { calendarDialog.setStartDate(dateStart!!) }
+            dateEnd?.let { calendarDialog.setEndDate(dateEnd!!) }
+            calendarDialog.show()
         }
 
         private fun dismissDialog() {
