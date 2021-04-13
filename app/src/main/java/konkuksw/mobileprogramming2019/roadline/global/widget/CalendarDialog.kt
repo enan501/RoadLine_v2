@@ -53,11 +53,11 @@ class CalendarDialog (context: Context) : Dialog(context) {
 
         private fun initCalendarView(){
             val startBackground: GradientDrawable by lazy {
-                mContext.getDrawableCompat(R.drawable.example_4_continuous_selected_bg_start) as GradientDrawable
+                mContext.getDrawableCompat(R.drawable.calendar_day_picked_start) as GradientDrawable
             }
 
             val endBackground: GradientDrawable by lazy {
-                mContext.getDrawableCompat(R.drawable.example_4_continuous_selected_bg_end) as GradientDrawable
+                mContext.getDrawableCompat(R.drawable.calendar_day_picked_end) as GradientDrawable
             }
 
             val dateFormat = DateTimeFormatter.ofPattern("yyyy년 MM월")
@@ -98,7 +98,7 @@ class CalendarDialog (context: Context) : Dialog(context) {
                             startDate == day.date && endDate == null -> {
                                 container.textView.setTextColorRes(R.color.white)
                                 container.roundView.visibility = View.VISIBLE
-                                container.roundView.setBackgroundResource(R.drawable.example_4_single_selected_bg)
+                                container.roundView.setBackgroundResource(R.drawable.calendar_day_picked_one)
                             }
                             day.date == startDate -> {
                                 container.textView.setTextColorRes(R.color.white)
@@ -106,7 +106,7 @@ class CalendarDialog (context: Context) : Dialog(context) {
                             }
                             startDate != null && endDate != null && (day.date > startDate && day.date < endDate) -> {
                                 container.textView.setTextColorRes(R.color.white)
-                                container.textView.setBackgroundResource(R.drawable.example_4_continuous_selected_bg_middle)
+                                container.textView.setBackgroundResource(R.drawable.calendar_day_picked_middle)
                             }
                             day.date == endDate -> {
                                 container.textView.setTextColorRes(R.color.white)
@@ -133,7 +133,7 @@ class CalendarDialog (context: Context) : Dialog(context) {
                                         endDate.monthValue != day.date.monthValue)
                             ) {
                                 container.textView.setTextColorRes(R.color.white)
-                                container.textView.setBackgroundResource(R.drawable.example_4_continuous_selected_bg_middle)
+                                container.textView.setBackgroundResource(R.drawable.calendar_day_picked_middle)
                             }
                         }
                     }

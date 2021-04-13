@@ -21,7 +21,7 @@
                 android:id="@+id/leftButton"
                 android:layout_width="28dp"
                 android:layout_height="0dp"
-                android:background="@color/colorPrimary"
+                android:background="@color/normalBlue"
                 android:paddingStart="8dp"
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"
@@ -37,7 +37,7 @@
                 android:id="@+id/rightButton"
                 android:layout_width="28dp"
                 android:layout_height="0dp"
-                android:background="@color/colorPrimary"
+                android:background="@color/normalBlue"
                 android:paddingTop="16dp"
                 android:paddingBottom="16dp"
                 android:paddingEnd="8dp"
@@ -53,7 +53,7 @@
                 android:id="@+id/calendarMonthText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:background="@color/colorPrimary"
+                android:background="@color/normalBlue"
                 android:gravity="center"
                 android:paddingTop="12dp"
                 android:paddingBottom="12dp"
@@ -165,22 +165,17 @@
                 android:text="취소"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/btnOk"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/calendarView"
-                app:layout_constraintVertical_bias="0.7" />
+                app:layout_constraintTop_toBottomOf="@id/calendarView"/>
 
             <Button
                 style="@style/BlueButtonStyle"
                 android:id="@+id/btnOk"
-                android:background="@drawable/button_background"
                 android:text="확인"
                 app:layout_constraintBottom_toBottomOf="@+id/btnCancel"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toEndOf="@+id/btnCancel"
-                app:layout_constraintTop_toTopOf="@+id/btnCancel"
-                app:layout_constraintVertical_bias="0.7" />
+                app:layout_constraintTop_toTopOf="@+id/btnCancel"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 </layout>

@@ -6,9 +6,11 @@ import android.content.DialogInterface
 import android.graphics.Color
 import android.graphics.Point
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.text.SpannableStringBuilder
 import android.view.LayoutInflater
 import android.view.View
+import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout
 import konkuksw.mobileprogramming2019.roadline.data.entity.Travel
@@ -68,6 +70,13 @@ class TravelAddDialog(context: Context): Dialog(context) {
             dateStart?.let { calendarDialog.setStartDate(dateStart!!) }
             dateEnd?.let { calendarDialog.setEndDate(dateEnd!!) }
             calendarDialog.show()
+        }
+
+        private fun setCurrencyAdapter(adapter: ArrayAdapter<String>): Builder {
+            dialog.binding.spCurrency.adapter = adapter
+            dialog.binding.spCurrency.setPositiveButton("취소")
+            dialog.binding.spCurrency.setSelection(adapter.count)
+            return this
         }
 
         private fun dismissDialog() {

@@ -12,7 +12,7 @@ class DayRepo(application: Application) {
     private val dayDao: DayDao
     get() = MyApplication.db!!.dayDao()
 
-    suspend fun getAll(): LiveData<List<Day>> {
+    fun getAll(): LiveData<List<Day>> {
         return dayDao.getAll()
     }
 
