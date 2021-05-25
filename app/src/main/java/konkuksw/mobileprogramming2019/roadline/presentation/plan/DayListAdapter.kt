@@ -23,7 +23,7 @@ class DayListAdapter(
 
     inner class DayViewHolder(var binding: ItemDateButtonBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Day){
-
+            binding.viewModel = viewModel
             binding.item = item
             binding.onItemClickListener = onItemClickListener
             binding.dayNum = adapterPosition + 1
