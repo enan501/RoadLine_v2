@@ -18,6 +18,11 @@ fun periodToString(startDay: LocalDate, endDay: LocalDate): String{
     return startDay.format(dateFormat) + " - " + endDay.format(dateFormat)
 }
 
+fun hourMinToLong(hour: Int, min: Int): Int {
+    // 시간, 분 ->
+    return hour * 60 + min
+}
+
 internal fun TextView.setTextColorRes(@ColorRes color: Int) = setTextColor(context.getColorCompat(color))
 internal fun Context.getDrawableCompat(@DrawableRes drawable: Int) = ContextCompat.getDrawable(this, drawable)
 internal fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getColor(this, color)

@@ -28,9 +28,8 @@ import java.util.*
 
 class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
     R.layout.activity_add_plan
-) , OnMapReadyCallback {
+)  {
     private val viewModel:AddPlanViewModel by viewModels()
-    lateinit var googleMap: GoogleMap
     private val travelId by lazy {
         intent.getIntExtra("travelId", -1)
     }
@@ -38,18 +37,17 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
         intent.getIntExtra("dayNum", -1)
     }
     private val dayId by lazy {
-        intent.getStringExtra("dayId")
+        intent.getIntExtra("dayId", -1)
     }
     private val autoCompleteFragment by lazy {
         supportFragmentManager.findFragmentById(R.id.sbName) as AutocompleteSupportFragment
     }
 
 
-    override fun onMapReady(p0: GoogleMap) {
-        googleMap = p0
-//        initMap()
-//        initListener()
-    }
+//    override fun onMapReady(p0: GoogleMap) {
+////        initMap()
+////        initListener()
+//    }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if(item!!.itemId == android.R.id.home){
@@ -260,29 +258,36 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
 //        }
 //    }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
     override fun initView() {
         binding.viewModel = viewModel
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        val searchBox = autoCompleteFragment.view?.findViewById(places_autocomplete_search_input) as EditText
+        val addMapView = supportFragmentManager.findFragmentById(R.id.fragMap) as SupportMapFragment
+        addMapView.getMapAsync(viewModel)
+
         autoCompleteFragment.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME,Place.Field.LAT_LNG))
-//        searchBox = autocompleteFragment!!.view?.findViewById(places_autocomplete_search_input) as EditText
-//        val addMapView = supportFragmentManager.findFragmentById(R.id.AS_MapView) as SupportMapFragment
-//        addMapView.getMapAsync(this)
-//
-//        binding.btnConfirm.setOnClickListener {
+        autoCompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
+            override fun onError(status: Status) {
+                Log.d("addMap", "Error : " + status.toString())
+            }
+
+            override fun onPlaceSelected(place: Place) {
+                viewModel.setPlaceSelected(place)
+            }
+        })
+
+
+        binding.btnConfirm.setOnClickListener {
 //            viewModel.addPlan(
 //                dayId,
-//                binding.sbName.
 //                binding.titleEditText.text.toString(),
-//
-//            ))
-//            finish()
-//        }
+//                binding.timePicker.hour,
+//                binding.memoEditText.text.toString(),
+//                viewModel.plans
+//            )
+            finish()
+        }
     }
 
     override fun setObserve() {
