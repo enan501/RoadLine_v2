@@ -2,6 +2,7 @@ package konkuksw.mobileprogramming2019.roadline.global.extension
 
 import android.content.Context
 import android.widget.TextView
+import android.widget.TimePicker
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
@@ -18,9 +19,17 @@ fun periodToString(startDay: LocalDate, endDay: LocalDate): String{
     return startDay.format(dateFormat) + " - " + endDay.format(dateFormat)
 }
 
-fun hourMinToLong(hour: Int, min: Int): Int {
-    // 시간, 분 ->
+fun hourMinToTotalMin(hour: Int, min: Int): Int {
+    // 시간, 분 -> 분
     return hour * 60 + min
+}
+
+fun totalMinToHour(totalMin: Int): Int {
+    return totalMin / 60
+}
+
+fun totalMinToMin(totalMin: Int): Int {
+    return totalMin % 60
 }
 
 internal fun TextView.setTextColorRes(@ColorRes color: Int) = setTextColor(context.getColorCompat(color))

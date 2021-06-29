@@ -16,7 +16,7 @@ data class Plan(
     var nameAlter: String? = null,
     var locationX: Double,
     var locationY: Double,
-    var time: Long? = null,
+    var time: Int? = null,
     var memo: String? = null,
     var pos: Int = 0
 )

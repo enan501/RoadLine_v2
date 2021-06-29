@@ -4,6 +4,7 @@ import android.app.Application
 import android.graphics.Bitmap
 import android.graphics.drawable.BitmapDrawable
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -51,7 +52,7 @@ class AddPlanViewModel(application: Application) : BaseViewModel(application) , 
         locationX = (place.latLng as LatLng).longitude
     }
 
-    fun addPlan(dayId: Int, nameAlter: String, time: Long, memo: String, pos: Int) {
+    fun addPlan(dayId: Int, nameAlter: String, time: Int?, memo: String?) {
         viewModelScope.launch {
             val plan = Plan(
                 dayId = dayId,
@@ -61,9 +62,15 @@ class AddPlanViewModel(application: Application) : BaseViewModel(application) , 
                 locationY = locationY,
                 time = time,
                 memo = memo,
-                pos = pos
+                pos = getPlansCountByDayId(dayId)
             )
             MyApplication.planRepo.insert(plan)
+        }
+    }
+
+    private fun getPlansCountByDayId(dayId: Int): Int {
+        MyApplication.dayRepo.getDayWithPlans(dayId).value!!.let {
+            return it.plans.size
         }
     }
 

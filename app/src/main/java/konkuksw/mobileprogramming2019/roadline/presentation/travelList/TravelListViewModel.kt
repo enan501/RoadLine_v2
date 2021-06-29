@@ -1,5 +1,6 @@
 package konkuksw.mobileprogramming2019.roadline.presentation.travelList
 
+import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
@@ -11,7 +12,7 @@ import konkuksw.mobileprogramming2019.roadline.presentation.base.BaseViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class TravelListViewModel : BaseViewModel() {
+class TravelListViewModel(application: Application) : BaseViewModel(application) {
 
     val travels = MyApplication.travelRepo.getAll()
 //    val currencys = MyApplication.currencyRepo.getAll()

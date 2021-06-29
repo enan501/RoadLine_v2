@@ -3,6 +3,7 @@ package konkuksw.mobileprogramming2019.roadline.presentation.plan
 import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import konkuksw.mobileprogramming2019.roadline.data.entity.Day
 import konkuksw.mobileprogramming2019.roadline.data.entity.Plan
@@ -12,7 +13,7 @@ import konkuksw.mobileprogramming2019.roadline.data.relation.TravelWithDays
 import konkuksw.mobileprogramming2019.roadline.global.MyApplication
 import konkuksw.mobileprogramming2019.roadline.presentation.base.BaseViewModel
 
-class PlanViewModel(application: Application, val travelId: Int) : BaseViewModel(application) {
+class PlanViewModel(val travelId: Int) : ViewModel() {
 
     var daysAndPlansByTravel = MyApplication.travelRepo.getTravelWithDaysAndPlans(travelId)
     val plansBySelectedDay: MutableLiveData<List<Plan>> by lazy {
@@ -26,7 +27,7 @@ class PlanViewModel(application: Application, val travelId: Int) : BaseViewModel
             // 모든 날짜의 plan data 가져옴
             if(dayNum == null)
                 plansBySelectedDay.postValue(it.daysWithPlans.flatMap{dwp -> dwp.plans})
-            // 선택된 날짜의 plan data 가져
+            // 선택된 날짜의 plan data 가져옴
             else
                 plansBySelectedDay.postValue(it.daysWithPlans[dayNum-1].plans)
         }

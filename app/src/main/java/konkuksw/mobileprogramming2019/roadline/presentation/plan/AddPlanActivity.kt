@@ -1,28 +1,17 @@
 package konkuksw.mobileprogramming2019.roadline.presentation.plan
 
-import android.app.Activity
-import android.content.Intent
-import android.net.Uri
-import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
-import android.view.ViewGroup
 import android.widget.EditText
 import androidx.activity.viewModels
 import com.google.android.gms.common.api.Status
-import com.google.android.gms.maps.CameraUpdateFactory
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import konkuksw.mobileprogramming2019.roadline.R
-import konkuksw.mobileprogramming2019.roadline.data.entity.Plan
 import konkuksw.mobileprogramming2019.roadline.databinding.ActivityAddPlanBinding
+import konkuksw.mobileprogramming2019.roadline.global.extension.hourMinToTotalMin
 import konkuksw.mobileprogramming2019.roadline.presentation.base.BaseActivity
 import java.util.*
 
@@ -33,14 +22,12 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
     private val travelId by lazy {
         intent.getIntExtra("travelId", -1)
     }
-    private val dayNum by lazy {
-        intent.getIntExtra("dayNum", -1)
-    }
+
     private val dayId by lazy {
         intent.getIntExtra("dayId", -1)
     }
     private val autoCompleteFragment by lazy {
-        supportFragmentManager.findFragmentById(R.id.sbName) as AutocompleteSupportFragment
+        supportFragmentManager.findFragmentById(R.id.fragName) as AutocompleteSupportFragment
     }
 
 
@@ -262,7 +249,6 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
         binding.viewModel = viewModel
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        val searchBox = autoCompleteFragment.view?.findViewById(places_autocomplete_search_input) as EditText
         val addMapView = supportFragmentManager.findFragmentById(R.id.fragMap) as SupportMapFragment
         addMapView.getMapAsync(viewModel)
 
@@ -279,13 +265,12 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
 
 
         binding.btnConfirm.setOnClickListener {
-//            viewModel.addPlan(
-//                dayId,
-//                binding.titleEditText.text.toString(),
-//                binding.timePicker.hour,
-//                binding.memoEditText.text.toString(),
-//                viewModel.plans
-//            )
+            viewModel.addPlan(
+                dayId,
+                binding.titleEditText.text.toString(),
+                hourMinToTotalMin(binding.timePicker.hour, binding.timePicker.minute),
+                binding.memoEditText.text.toString(),
+            )
             finish()
         }
     }
