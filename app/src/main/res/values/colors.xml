@@ -11,8 +11,9 @@
     <color name="colorAccent">#52B6CC</color>
     <color name="colorLight">#A2C2CA</color>
 
-    <color name="lightBlue">#F3F8FC</color>
+    <color name="lightBlue">#f1f8fd</color>
     <color name="normalBlue">#9FCFEF</color>
+    <color name="textBlue">#6bb8e9</color>
 
     <color name="black">#000000</color>
     <color name="black33">#333333</color>

@@ -44,7 +44,7 @@
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/button_background</item>
-        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:textColor">@color/textBlue</item>
     </style>
 
     <!--    요일 텍스트-->

@@ -1,7 +1,9 @@
 package konkuksw.mobileprogramming2019.roadline.presentation.plan
 
+import android.content.Intent
 import android.view.Menu
 import android.view.MenuItem
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
@@ -17,7 +19,7 @@ import konkuksw.mobileprogramming2019.roadline.presentation.base.BaseActivity
 class PlanActivity : BaseActivity<ActivityPlanBinding>(
     R.layout.activity_plan
 ) {
-    private lateinit var viewModel:PlanViewModel
+    private lateinit var viewModel: PlanViewModel
 
     private val planFragments = arrayListOf<Fragment>(
         VerticalPlanFragment(),
@@ -33,6 +35,7 @@ class PlanActivity : BaseActivity<ActivityPlanBinding>(
             viewModel.setPlans(dayNum)
         }
     }
+
 
     override fun initView() {
         viewModel = ViewModelProvider(this, HasParamViewModelFactory(travelId)).get(PlanViewModel::class.java)
@@ -59,6 +62,17 @@ class PlanActivity : BaseActivity<ActivityPlanBinding>(
             override fun onTabUnselected(tab: TabLayout.Tab?) { tab?.view?.alpha = 0.4f }
             override fun onTabReselected(tab: TabLayout.Tab?) { tab?.view?.alpha = 1f }
         })
+        binding.fabAdd.setOnClickListener {
+            // 일정 추가
+            val intent = Intent(this@PlanActivity, AddPlanActivity::class.java)
+            intent.putExtra("travelId", travelId)
+            intent.putExtra("dayNum", viewModel.selectedDay.value)
+            startActivity(intent)
+//            i.putExtra("pos", planAdapter.itemCount - 1)
+//            i.putExtra("DayNum", dayNum)
+//            i.putExtra("ListID", listID)
+//            startActivityForResult(i,123)
+        }
     }
 
 
