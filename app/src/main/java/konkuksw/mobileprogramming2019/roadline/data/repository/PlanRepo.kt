@@ -18,6 +18,10 @@ class PlanRepo(application: Application) {
         return planDao.getPlanById(PlanId)
     }
 
+    suspend fun updatePlan(planId: Int, name: String, nameAlter: String, locationX: Double, locationY: Double, time: Int?, memo: String?) {
+        planDao.updatePlan(planId, name, nameAlter, locationX, locationY, time, memo)
+    }
+
     suspend fun updatePlan(Plan: Plan) {
         planDao.updatePlan(Plan)
     }

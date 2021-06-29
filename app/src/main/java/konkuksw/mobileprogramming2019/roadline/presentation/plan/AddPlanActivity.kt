@@ -26,6 +26,10 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
     private val dayId by lazy {
         intent.getIntExtra("dayId", -1)
     }
+
+    private val planId by lazy {
+        intent.getIntExtra("planId", -1)
+    }
     private val autoCompleteFragment by lazy {
         supportFragmentManager.findFragmentById(R.id.fragName) as AutocompleteSupportFragment
     }
@@ -265,12 +269,29 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
 
 
         binding.btnConfirm.setOnClickListener {
-            viewModel.addPlan(
-                dayId,
-                binding.titleEditText.text.toString(),
-                hourMinToTotalMin(binding.timePicker.hour, binding.timePicker.minute),
-                binding.memoEditText.text.toString(),
-            )
+            var time: Int? = null
+            if(binding.tbTime.isChecked) {
+                time = hourMinToTotalMin(binding.timePicker.hour, binding.timePicker.minute)
+            }
+
+            if(planId == -1) { // 추가
+                viewModel.addPlan(
+                    dayId,
+                    binding.titleEditText.text.toString(),
+                    time,
+                    binding.memoEditText.text.toString()
+                )
+            }
+            else{ // 수정
+                viewModel.editPlan(
+                    planId,
+                    binding.titleEditText.text.toString(),
+                    time,
+                    binding.memoEditText.text.toString()
+                )
+
+            }
+
             finish()
         }
     }

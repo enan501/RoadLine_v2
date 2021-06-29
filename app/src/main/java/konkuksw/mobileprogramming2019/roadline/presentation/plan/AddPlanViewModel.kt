@@ -53,18 +53,34 @@ class AddPlanViewModel(application: Application) : BaseViewModel(application) , 
     }
 
     fun addPlan(dayId: Int, nameAlter: String, time: Int?, memo: String?) {
+        if(spotName.isNotEmpty()) {
+            viewModelScope.launch {
+                val plan = Plan(
+                    dayId = dayId,
+                    name = spotName,
+                    nameAlter = nameAlter,
+                    locationX = locationX,
+                    locationY = locationY,
+                    time = time,
+                    memo = memo,
+                    pos = getPlansCountByDayId(dayId)
+                )
+                MyApplication.planRepo.insert(plan)
+            }
+        }
+    }
+
+    fun editPlan(planId: Int, nameAlter: String, time: Int?, memo: String?) {
         viewModelScope.launch {
-            val plan = Plan(
-                dayId = dayId,
-                name = spotName,
-                nameAlter = nameAlter,
-                locationX = locationX,
-                locationY = locationY,
-                time = time,
-                memo = memo,
-                pos = getPlansCountByDayId(dayId)
+            MyApplication.planRepo.updatePlan(
+                    planId = planId,
+                    name = spotName,
+                    nameAlter = nameAlter,
+                    locationX = locationX,
+                    locationY = locationY,
+                    time = time,
+                    memo = memo,
             )
-            MyApplication.planRepo.insert(plan)
         }
     }
 

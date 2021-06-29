@@ -19,6 +19,9 @@ interface PlanDao {
     @Update
     fun updatePlan(day: Plan)
 
+    @Query("UPDATE `plan` SET name = :name, nameAlter = :nameAlter, locationX = :locationX, locationY = :locationY, time = :time, memo = :memo WHERE id = :planId")
+    fun updatePlan(planId: Int, name: String, nameAlter: String, locationX: Double, locationY: Double, time: Int?, memo: String?)
+
     @Insert
     fun insert(plan: Plan)
 
