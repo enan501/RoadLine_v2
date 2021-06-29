@@ -12,19 +12,25 @@ import konkuksw.mobileprogramming2019.roadline.global.MyApplication
 import konkuksw.mobileprogramming2019.roadline.presentation.base.BaseViewModel
 
 class PlanViewModel(val travelId: Int) : BaseViewModel() {
-    var travelWithDaysAndPlans = MyApplication.travelRepo.getTravelWithDaysAndPlans(travelId)
-    var plans: MutableLiveData<List<Plan>> = MutableLiveData()
+    var daysAndPlansByTravel = MyApplication.travelRepo.getTravelWithDaysAndPlans(travelId)
+    val plansBySelectedDay: MutableLiveData<List<Plan>> by lazy {
+        MutableLiveData<List<Plan>>()
+    }
     var selectedDay = MutableLiveData<Int?>(null)
 
 
     fun setPlans(dayNum: Int?){
-        travelWithDaysAndPlans.value?.let {
+        daysAndPlansByTravel.value?.let {
+            // 모든 날짜의 plan data 가져옴
             if(dayNum == null)
-                plans.postValue(it.daysWithPlans.flatMap{dwp -> dwp.plans})
+                plansBySelectedDay.postValue(it.daysWithPlans.flatMap{dwp -> dwp.plans})
+            // 선택된 날짜의 plan data 가져
             else
-                plans.postValue(it.daysWithPlans[dayNum-1].plans)
+                plansBySelectedDay.postValue(it.daysWithPlans[dayNum-1].plans)
         }
     }
+
+
 
 
 

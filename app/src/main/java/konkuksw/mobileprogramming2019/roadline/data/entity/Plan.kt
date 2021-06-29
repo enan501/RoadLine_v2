@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey
     onDelete = ForeignKey.CASCADE)
 ])
 data class Plan(
-    @PrimaryKey(autoGenerate = true) val id: Int,
+    @PrimaryKey(autoGenerate = true) val id: Int? = null,
     val dayId: Int,
     var name: String,
     var nameAlter: String? = null,

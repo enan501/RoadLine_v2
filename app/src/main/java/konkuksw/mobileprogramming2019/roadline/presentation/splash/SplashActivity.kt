@@ -21,7 +21,7 @@ class SplashActivity : BaseActivity<ActivitySplashBinding>(
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         GlobalScope.launch(Dispatchers.IO) {
-            MyApplication.db?.clearAllTables()
+//            MyApplication.db?.clearAllTables()
             startActivity(Intent(this@SplashActivity, TravelListActivity::class.java))
             finish()
         }

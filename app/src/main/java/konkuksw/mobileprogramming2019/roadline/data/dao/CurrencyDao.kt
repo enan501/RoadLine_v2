@@ -11,11 +11,12 @@ interface CurrencyDao {
     @Query("SELECT * FROM currency")
     fun getAll(): List<Currency>
 
-    @Query("SELECT * FROM currency WHERE code IN (:currencyIds)")
-    fun loadAllByIds(currencyIds: IntArray): List<Currency>
+
+    @Query("SELECT * FROM currency WHERE code = (:currencyCode) LIMIT 1")
+    fun getCurrencyByCode(currencyCode: String): Currency
 
     @Insert
-    fun insertAll(vararg currencys: Currency)
+    fun insertAll(currencys: List<Currency>)
 
     @Delete
     fun delete(currency: Currency)

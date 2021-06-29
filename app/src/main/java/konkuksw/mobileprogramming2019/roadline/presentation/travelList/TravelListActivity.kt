@@ -13,6 +13,7 @@ import konkuksw.mobileprogramming2019.roadline.R
 import konkuksw.mobileprogramming2019.roadline.data.entity.Travel
 import konkuksw.mobileprogramming2019.roadline.databinding.ActivityTravelListBinding
 import konkuksw.mobileprogramming2019.roadline.global.widget.BaseDialog
+import konkuksw.mobileprogramming2019.roadline.global.widget.TravelAddDialog
 import konkuksw.mobileprogramming2019.roadline.presentation.base.BaseActivity
 import konkuksw.mobileprogramming2019.roadline.presentation.plan.PlanActivity
 import java.time.LocalDate
@@ -48,14 +49,8 @@ class TravelListActivity : BaseActivity<ActivityTravelListBinding>(
         })
 
         binding.btnAddTravel.setOnClickListener {
-            val dialog = BaseDialog.Builder(this@TravelListActivity)
-            dialog.create()
-                    .setTitle("추가")
-                    .setOkButton("추가") {
-                        viewModel.addTravel(Travel(title = "배낭여행", dateStart = LocalDate.now(), dateEnd = LocalDate.now().plusDays(6)))
-                        dialog.dismissDialog()
-                    }
-                    .show()
+            val dialog = TravelAddDialog.Builder(this@TravelListActivity, viewModel)
+            dialog.create().show()
         }
 
         binding.appBar.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener{ _: AppBarLayout?, verticalOffset: Int ->

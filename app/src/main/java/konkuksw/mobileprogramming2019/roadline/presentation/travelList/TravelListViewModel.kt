@@ -14,6 +14,7 @@ import kotlinx.coroutines.launch
 class TravelListViewModel : BaseViewModel() {
 
     val travels = MyApplication.travelRepo.getAll()
+//    val currencys = MyApplication.currencyRepo.getAll()
 
     fun addTravel(travel: Travel){
         viewModelScope.launch(Dispatchers.IO) {
@@ -22,5 +23,6 @@ class TravelListViewModel : BaseViewModel() {
     }
 
     fun editTravel(travel: Travel){
+
     }
 }

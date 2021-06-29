@@ -26,7 +26,7 @@ class DayListAdapter(
             binding.viewModel = viewModel
             binding.item = item
             binding.onItemClickListener = onItemClickListener
-            binding.dayNum = adapterPosition + 1
+            binding.dayNum = bindingAdapterPosition + 1
             binding.lifecycleOwner = lifecycleOwner
         }
     }
