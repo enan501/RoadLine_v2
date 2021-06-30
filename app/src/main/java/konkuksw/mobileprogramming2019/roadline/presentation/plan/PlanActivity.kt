@@ -4,6 +4,7 @@ import android.content.Intent
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -104,6 +105,14 @@ class PlanActivity : BaseActivity<ActivityPlanBinding>(
         viewModel.getAllPlans().observe(this, { dayWithPlans ->
             Log.d("mytag", dayWithPlans.toString())
 
+        })
+        viewModel.selectedDay.observe(this, {
+            if(it == null) {
+                binding.fabAdd.visibility = View.GONE
+            }
+            else{
+                binding.fabAdd.visibility = View.VISIBLE
+            }
         })
     }
 
