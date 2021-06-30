@@ -1,6 +1,7 @@
 package konkuksw.mobileprogramming2019.roadline.presentation.plan
 
 import android.content.Intent
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.result.contract.ActivityResultContracts
@@ -68,10 +69,6 @@ class PlanActivity : BaseActivity<ActivityPlanBinding>(
             intent.putExtra("travelId", travelId)
             intent.putExtra("dayId", viewModel.getSelectedDayId())
             startActivity(intent)
-//            i.putExtra("pos", planAdapter.itemCount - 1)
-//            i.putExtra("DayNum", dayNum)
-//            i.putExtra("ListID", listID)
-//            startActivityForResult(i,123)
         }
     }
 
@@ -103,5 +100,11 @@ class PlanActivity : BaseActivity<ActivityPlanBinding>(
         return true
     }
 
+    override fun setObserve() {
+        viewModel.getAllPlans().observe(this, { dayWithPlans ->
+            Log.d("mytag", dayWithPlans.toString())
+
+        })
+    }
 
 }

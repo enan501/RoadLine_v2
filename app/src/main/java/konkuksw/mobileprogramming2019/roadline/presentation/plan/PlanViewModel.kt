@@ -36,13 +36,15 @@ class PlanViewModel(val travelId: Int) : ViewModel() {
     fun getSelectedDayId(): Int? {
         daysAndPlansByTravel.value?.let { travel ->
             selectedDay.value?.let {
-                travel.daysWithPlans[it - 1].day.id
+                return travel.daysWithPlans[it - 1].day.id
             }
         }
         return null
     }
 
-
+    fun getAllPlans(): LiveData<List<Plan>> {
+        return MyApplication.planRepo.getAll()
+    }
 
 
 

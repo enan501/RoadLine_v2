@@ -1,6 +1,7 @@
 package konkuksw.mobileprogramming2019.roadline.data.dao
 
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import konkuksw.mobileprogramming2019.roadline.data.entity.Day
 import konkuksw.mobileprogramming2019.roadline.data.entity.Travel
@@ -30,5 +31,9 @@ interface DayDao {
     @Transaction
     @Query("SELECT * FROM day WHERE id = :dayId")
     fun getDayWithPlans(dayId: Int): LiveData<DayWithPlans>
+
+    @Transaction
+    @Query("SELECT * FROM day")
+    fun getAllDayWithPlans(): LiveData<DayWithPlans>
 
 }

@@ -2,6 +2,7 @@ package konkuksw.mobileprogramming2019.roadline.data.repository
 
 import android.app.Application
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import konkuksw.mobileprogramming2019.roadline.data.dao.DayDao
 import konkuksw.mobileprogramming2019.roadline.data.entity.Day
 import konkuksw.mobileprogramming2019.roadline.data.relation.DayWithPlans
@@ -33,6 +34,11 @@ class DayRepo(application: Application) {
     }
 
     fun getDayWithPlans(dayId: Int): LiveData<DayWithPlans> {
-        return dayDao.getDayWithPlans(dayId)
+        if (dayId != -1) {
+            return dayDao.getDayWithPlans(dayId)
+        }
+        else{
+            return dayDao.getAllDayWithPlans()
+        }
     }
 }
