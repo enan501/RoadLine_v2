@@ -30,5 +30,4 @@ interface DayDao {
     @Transaction
     @Query("SELECT * FROM day WHERE id = :dayId")
     fun getDayWithPlans(dayId: Int): LiveData<DayWithPlans>
-
 }

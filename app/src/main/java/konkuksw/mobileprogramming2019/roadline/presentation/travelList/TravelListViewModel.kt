@@ -12,7 +12,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class TravelListViewModel : BaseViewModel() {
-
     val travels = MyApplication.travelRepo.getAll()
 //    val currencys = MyApplication.currencyRepo.getAll()
 
@@ -23,6 +22,14 @@ class TravelListViewModel : BaseViewModel() {
     }
 
     fun editTravel(travel: Travel){
+        viewModelScope.launch(Dispatchers.IO) {
+            MyApplication.travelRepo.updateTravel(travel)
+        }
+    }
 
+    fun deleteTravel(travel: Travel){
+        viewModelScope.launch(Dispatchers.IO){
+            MyApplication.travelRepo.delete(travel)
+        }
     }
 }
