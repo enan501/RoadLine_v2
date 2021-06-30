@@ -61,8 +61,20 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
 
     override fun initView() {
         binding.viewModel = viewModel
+
+        if(planId == -1){
+            binding.toolbar.title = "일정 추가"
+            binding.timePicker.isEnabled = false
+        }
+        else{
+            binding.toolbar.title = "일정 수정"
+        }
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+
+        binding.swTime.setOnCheckedChangeListener { _, isChecked ->
+            binding.timePicker.isEnabled = isChecked
+        }
 
         if (!Places.isInitialized()) {
             Places.initialize(application.applicationContext, application.resources.getString(R.string.api_key))
@@ -79,10 +91,9 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
             }
         })
 
-
         binding.btnConfirm.setOnClickListener {
             var time: Int? = null
-            if(binding.tbTime.isChecked) {
+            if(binding.swTime.isChecked) {
                 time = hourMinToTotalMin(binding.timePicker.hour, binding.timePicker.minute)
             }
             if(viewModel.spotName.isNotEmpty()) {
