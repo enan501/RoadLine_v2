@@ -24,8 +24,8 @@ class PlanViewModel(val travelId: Int) : BaseViewModel() {
             // 모든 날짜의 plan data 가져옴
             if(dayNum == null)
                 plansBySelectedDay.postValue(it.daysWithPlans.flatMap{dwp -> dwp.plans})
-            // 선택된 날짜의 plan data 가져
             else
+                // 선택된 날짜의 plan data 가져옴
                 plansBySelectedDay.postValue(it.daysWithPlans[dayNum-1].plans)
         }
     }

@@ -43,7 +43,7 @@
             android:id="@+id/rvDates"
             android:orientation="horizontal"
             app:listData="@{viewModel.daysAndPlansByTravel}"
-            tools:listitem="@layout/item_travel"
+            tools:listitem="@layout/item_date_button"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_width="0dp"
             android:layout_height="0dp"
