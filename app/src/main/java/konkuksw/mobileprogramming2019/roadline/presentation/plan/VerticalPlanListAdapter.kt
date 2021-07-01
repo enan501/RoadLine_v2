@@ -24,8 +24,11 @@ class VerticalPlanListAdapter(
 
     inner class PlanViewHolder(var binding: ItemVerticalPlanBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Plan){
+            binding.lifecycleOwner = lifecycleOwner
             binding.plan = item
             binding.listener = onItemClickListener
+            binding.position = layoutPosition
+            binding.itemCount = itemCount
         }
     }
 

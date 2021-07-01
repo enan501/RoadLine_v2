@@ -8,6 +8,12 @@ object ViewBindingAdapter {
     @BindingAdapter("setSelectedDayNum")
     @JvmStatic
     fun TextView.setSelectedDayNum(selectedDay: Int?){
-        this.isSelected = (this.text == selectedDay.toString()) || (selectedDay == null && this.text == "A")
+        this.isSelected = (this.text == selectedDay.toString()) || (selectedDay == 0 && this.text == "A")
+    }
+
+    @BindingAdapter("setVisible")
+    @JvmStatic
+    fun View.setVisible(setVisible:Boolean){
+        this.visibility = if(setVisible) View.VISIBLE else View.GONE
     }
 }
