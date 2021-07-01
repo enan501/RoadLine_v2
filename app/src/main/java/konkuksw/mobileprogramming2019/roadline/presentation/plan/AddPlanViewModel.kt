@@ -26,49 +26,75 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.util.*
 
-class AddPlanViewModel(application: Application) : BaseViewModel(application){
+class AddPlanViewModel(application: Application, var plan: Plan?) : BaseViewModel(application), OnMapReadyCallback {
     private val markerBitmap = (ContextCompat.getDrawable(application.applicationContext, R.drawable.marker) as BitmapDrawable).bitmap
-    var spotName = ""
-    private var locationX = 0.0
-    private var locationY = 0.0
+    var spotName = plan?.name
+    private var locationX = 126.984719
+    private var locationY = 37.552420
+    val nameAlter = MutableLiveData<String>(plan?.nameAlter)
+    val memo = MutableLiveData<String>(plan?.memo)
+    lateinit var googleMap: GoogleMap
+    private val markerIcon = Bitmap.createScaledBitmap(markerBitmap, 71, 100, false)
 
-    fun setPlaceSelected(googleMap: GoogleMap, place: Place) {
-        val markerIcon = Bitmap.createScaledBitmap(markerBitmap, 71, 100, false)
-        googleMap.clear()
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(place.latLng,12f))
-        googleMap.addMarker(MarkerOptions().position(place.latLng!!).icon(BitmapDescriptorFactory.fromBitmap(markerIcon)))
+
+    override fun onMapReady(p0: GoogleMap) {
+        googleMap = p0
+        if(plan == null) { // 추가
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(locationY, locationX),12f))
+
+        }
+        else{
+            googleMap.addMarker(MarkerOptions()
+                    .position(LatLng(plan!!.locationY, plan!!.locationX))
+                    .icon(BitmapDescriptorFactory.fromBitmap(markerIcon)))
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(plan!!.locationY, plan!!.locationX),12f))
+        }
+
+    }
+
+    fun setPlaceSelected(place: Place) {
+        if(::googleMap.isInitialized) {
+            googleMap.clear()
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(place.latLng,12f))
+            googleMap.addMarker(MarkerOptions().position(place.latLng!!).icon(BitmapDescriptorFactory.fromBitmap(markerIcon)))
+        }
         spotName = place.name.toString()
         locationY = (place.latLng as LatLng).latitude
         locationX = (place.latLng as LatLng).longitude
     }
 
-    fun addPlan(dayId: Int, nameAlter: String, time: Int?, memo: String?) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val plan = Plan(
-                dayId = dayId,
-                name = spotName,
-                nameAlter = nameAlter,
-                locationX = locationX,
-                locationY = locationY,
-                time = time,
-                memo = memo,
-                pos = getPlansCountByDayId(dayId)
-            )
-            MyApplication.planRepo.insert(plan)
-        }
-    }
-
-    fun editPlan(planId: Int, nameAlter: String, time: Int?, memo: String?) {
-        viewModelScope.launch {
-            MyApplication.planRepo.updatePlan(
-                    planId = planId,
-                    name = spotName,
-                    nameAlter = nameAlter,
+    fun addPlan(dayId: Int, time: Int?) {
+        spotName?.let {
+            viewModelScope.launch(Dispatchers.IO) {
+                val plan = Plan(
+                    dayId = dayId,
+                    name = it,
+                    nameAlter = nameAlter.value,
                     locationX = locationX,
                     locationY = locationY,
                     time = time,
-                    memo = memo,
-            )
+                    memo = memo.value,
+                    pos = getPlansCountByDayId(dayId)
+                )
+                MyApplication.planRepo.insert(plan)
+            }
+        }
+
+    }
+
+    fun editPlan(planId: Int, time: Int?) {
+        spotName?.let {
+            viewModelScope.launch(Dispatchers.IO) {
+                MyApplication.planRepo.updatePlan(
+                    planId = planId,
+                    name = it,
+                    nameAlter = nameAlter.value,
+                    locationX = locationX,
+                    locationY = locationY,
+                    time = time,
+                    memo = memo.value,
+                )
+            }
         }
     }
 

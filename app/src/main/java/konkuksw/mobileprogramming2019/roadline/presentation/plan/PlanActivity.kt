@@ -40,7 +40,7 @@ class PlanActivity : BaseActivity<ActivityPlanBinding>(
 
 
     override fun initView() {
-        viewModel = ViewModelProvider(this, HasParamViewModelFactory(travelId)).get(PlanViewModel::class.java)
+        viewModel = ViewModelProvider(this, HasParamViewModelFactory(application, travelId)).get(PlanViewModel::class.java)
         binding.viewModel = viewModel
 
         setSupportActionBar(binding.toolbar)

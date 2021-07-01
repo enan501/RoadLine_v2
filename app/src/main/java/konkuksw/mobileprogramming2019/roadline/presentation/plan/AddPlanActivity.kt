@@ -3,8 +3,10 @@ package konkuksw.mobileprogramming2019.roadline.presentation.plan
 import android.os.Parcelable
 import android.util.Log
 import android.view.MenuItem
+import android.widget.EditText
 import androidx.activity.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -19,14 +21,17 @@ import konkuksw.mobileprogramming2019.roadline.R
 import konkuksw.mobileprogramming2019.roadline.data.entity.Plan
 import konkuksw.mobileprogramming2019.roadline.databinding.ActivityAddPlanBinding
 import konkuksw.mobileprogramming2019.roadline.global.extension.hourMinToTotalMin
+import konkuksw.mobileprogramming2019.roadline.global.extension.totalMinToHour
+import konkuksw.mobileprogramming2019.roadline.global.extension.totalMinToMin
+import konkuksw.mobileprogramming2019.roadline.global.util.HasParamViewModelFactory
 import konkuksw.mobileprogramming2019.roadline.presentation.base.BaseActivity
 
 
 class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
     R.layout.activity_add_plan
-) , OnMapReadyCallback {
-    private val viewModel:AddPlanViewModel by viewModels()
-    lateinit var googleMap: GoogleMap
+) {
+    private lateinit var viewModel: AddPlanViewModel
+
     private val travelId by lazy {
         intent.getIntExtra("travelId", -1)
     }
@@ -45,13 +50,10 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
     private val addMapView by lazy {
         supportFragmentManager.findFragmentById(R.id.fragMap) as SupportMapFragment
     }
-
-
-    override fun onMapReady(p0: GoogleMap) {
-        googleMap = p0
-        initMap()
-//        initListener()
+    private val searchBox by lazy {
+        autoCompleteFragment.view?.findViewById(R.id.places_autocomplete_search_input) as EditText
     }
+
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         if(item!!.itemId == android.R.id.home){
@@ -62,13 +64,23 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
 
 
     override fun initView() {
+        viewModel = ViewModelProvider(this, HasParamViewModelFactory(application, plan)).get(AddPlanViewModel::class.java)
         binding.viewModel = viewModel
+        binding.timePicker.isEnabled = false
+
         if(plan == null){
             binding.toolbar.title = "일정 추가"
             binding.timePicker.isEnabled = false
         }
         else{
             binding.toolbar.title = "일정 수정"
+            searchBox.setText(plan.name)
+            plan.time?.let {
+                binding.timePicker.isEnabled = true
+                binding.swTime.isChecked = true
+                binding.timePicker.hour = totalMinToHour(it)
+                binding.timePicker.minute = totalMinToMin(it)
+            }
         }
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
@@ -78,9 +90,31 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
         }
 
         if (!Places.isInitialized()) {
-            Places.initialize(application.applicationContext, application.resources.getString(R.string.api_key))
+            Places.initialize(application.applicationContext, application.resources.getString(R.string.MAPS_API_KEY))
         }
-        addMapView.getMapAsync(this)
+        addMapView.getMapAsync(viewModel)
+
+
+        binding.btnConfirm.setOnClickListener {
+            var time: Int? = null
+            if(binding.swTime.isChecked) {
+                time = hourMinToTotalMin(binding.timePicker.hour, binding.timePicker.minute)
+            }
+            if(plan == null) { // 추가
+                viewModel.addPlan(
+                    dayId,
+                    time
+                )
+            }
+            else{ // 수정
+                viewModel.editPlan(
+                    plan.id!!,
+                    time
+                )
+            }
+            finish()
+        }
+
         autoCompleteFragment.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME,Place.Field.LAT_LNG))
         autoCompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onError(status: Status) {
@@ -88,50 +122,9 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
             }
 
             override fun onPlaceSelected(place: Place) {
-                viewModel.setPlaceSelected(googleMap, place)
+                viewModel.setPlaceSelected(place)
             }
         })
-
-        binding.btnConfirm.setOnClickListener {
-            var time: Int? = null
-            if(binding.swTime.isChecked) {
-                time = hourMinToTotalMin(binding.timePicker.hour, binding.timePicker.minute)
-            }
-            if(viewModel.spotName.isNotEmpty()) {
-                if(plan == null) { // 추가
-                    viewModel.addPlan(
-                        dayId,
-                        binding.titleEditText.text.toString(),
-                        time,
-                        binding.memoEditText.text.toString()
-                    )
-                }
-                else{ // 수정
-                    viewModel.editPlan(
-                        plan.id!!,
-                        binding.titleEditText.text.toString(),
-                        time,
-                        binding.memoEditText.text.toString()
-                    )
-
-                }
-                finish()
-            }
-        }
     }
 
-    private fun initMap() {
-        if(plan == null) { // 추가
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(37.552420, 126.984719),12f))
-        }
-        else { // 수정
-
-        }
-    }
-
-    override fun setObserve() {
-        super.setObserve()
-
-
-    }
 }

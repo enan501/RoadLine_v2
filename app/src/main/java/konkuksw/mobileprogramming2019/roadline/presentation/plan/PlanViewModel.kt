@@ -1,5 +1,6 @@
 package konkuksw.mobileprogramming2019.roadline.presentation.plan
 
+import android.app.Application
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,7 +13,7 @@ import konkuksw.mobileprogramming2019.roadline.data.relation.TravelWithDays
 import konkuksw.mobileprogramming2019.roadline.global.MyApplication
 import konkuksw.mobileprogramming2019.roadline.presentation.base.BaseViewModel
 
-class PlanViewModel(val travelId: Int) : ViewModel() {
+class PlanViewModel(val application: Application, val travelId: Int) : ViewModel() {
 
     var daysAndPlansByTravel = MyApplication.travelRepo.getTravelWithDaysAndPlans(travelId)
     val plansBySelectedDay: MutableLiveData<List<Plan>> by lazy {

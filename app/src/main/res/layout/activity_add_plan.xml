@@ -63,6 +63,7 @@
 
         <EditText
             android:id="@+id/titleEditText"
+            android:text="@={viewModel.nameAlter}"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginStart="8dp"
@@ -99,6 +100,7 @@
             app:layout_constraintTop_toBottomOf="@+id/titleEditText" />
 
         <EditText
+            android:text="@={viewModel.memo}"
             android:background="@null"
             android:id="@+id/memoEditText"
             android:layout_width="0dp"
