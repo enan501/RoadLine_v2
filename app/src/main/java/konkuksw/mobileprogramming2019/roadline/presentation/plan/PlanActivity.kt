@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -34,7 +35,7 @@ class PlanActivity : BaseActivity<ActivityPlanBinding>(
     private val onDayClickListener = object : DayListAdapter.OnItemClickListener {
         override fun onItemClick(dayNum: Int?) {
             viewModel.selectedDay.postValue(dayNum)
-            viewModel.setPlans(dayNum)
+//            viewModel.setPlans(dayNum)
         }
     }
 
@@ -45,7 +46,7 @@ class PlanActivity : BaseActivity<ActivityPlanBinding>(
 
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
+        binding.btnAll.dayNum = 0
         binding.btnAll.onItemClickListener = onDayClickListener
         binding.rvDates.adapter = DayListAdapter(viewModel, this, onDayClickListener)
 
@@ -71,6 +72,7 @@ class PlanActivity : BaseActivity<ActivityPlanBinding>(
             intent.putExtra("dayId", viewModel.getSelectedDayId())
             startActivity(intent)
         }
+
     }
 
 
@@ -105,14 +107,6 @@ class PlanActivity : BaseActivity<ActivityPlanBinding>(
         viewModel.getAllPlans().observe(this, { dayWithPlans ->
             Log.d("mytag", dayWithPlans.toString())
 
-        })
-        viewModel.selectedDay.observe(this, {
-            if(it == null) {
-                binding.fabAdd.visibility = View.GONE
-            }
-            else{
-                binding.fabAdd.visibility = View.VISIBLE
-            }
         })
     }
 
