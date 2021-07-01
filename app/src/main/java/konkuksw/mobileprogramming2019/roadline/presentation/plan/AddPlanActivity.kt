@@ -78,13 +78,13 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
         }
 
         if (!Places.isInitialized()) {
-            Places.initialize(application.applicationContext, application.resources.getString(R.string.api_key))
+            Places.initialize(application.applicationContext, application.applicationContext.resources.getString(R.string.MAPS_API_KEY))
         }
         addMapView.getMapAsync(this)
         autoCompleteFragment.setPlaceFields(listOf(Place.Field.ID, Place.Field.NAME,Place.Field.LAT_LNG))
         autoCompleteFragment.setOnPlaceSelectedListener(object : PlaceSelectionListener {
             override fun onError(status: Status) {
-                Log.d("addMap", "Error : " + status.toString())
+                Log.d("addMap", "Error : $status")
             }
 
             override fun onPlaceSelected(place: Place) {
