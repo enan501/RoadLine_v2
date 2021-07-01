@@ -20,7 +20,13 @@
         android:onClick="@{()->listener.onItemClick(plan)}"
         android:layout_width="wrap_content"
         android:layout_height="50dp">
-
+        <View
+            android:id="@+id/view"
+            android:layout_width="wrap_content"
+            android:layout_height="0.5dp"
+            android:layout_marginEnd="10dp"
+            android:background="@color/lightGray" app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
         <View
             android:id="@+id/barTop"
             android:layout_width="@dimen/line_width"
@@ -99,12 +105,6 @@
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/rs_spotName"
             app:layout_constraintTop_toTopOf="parent" app:srcCompat="@drawable/delete"/>
 
-        <View
-            android:id="@+id/view"
-            android:layout_width="wrap_content"
-            android:layout_height="0.5dp"
-            android:layout_marginEnd="10dp"
-            android:background="@color/lightGray" app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
