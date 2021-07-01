@@ -35,7 +35,7 @@ class PlanActivity : BaseActivity<ActivityPlanBinding>(
     private val onDayClickListener = object : DayListAdapter.OnItemClickListener {
         override fun onItemClick(dayNum: Int?) {
             viewModel.selectedDay.postValue(dayNum)
-//            viewModel.setPlans(dayNum)
+
         }
     }
 

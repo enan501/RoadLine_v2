@@ -4,6 +4,12 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
+            name="itemCount"
+            type="Integer" />
+        <variable
+            name="position"
+            type="Integer" />
+        <variable
             name="plan"
             type="konkuksw.mobileprogramming2019.roadline.data.entity.Plan" />
         <variable
@@ -13,13 +19,13 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:onClick="@{()->listener.onItemClick(plan)}"
         android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:padding="3dp">
+        android:layout_height="50dp">
 
         <View
             android:id="@+id/barTop"
             android:layout_width="@dimen/line_width"
             android:layout_height="0dp"
+            setVisible="@{position != 0}"
             app:layout_constraintStart_toStartOf="@id/circle"
             app:layout_constraintEnd_toEndOf="@id/circle"
             app:layout_constraintTop_toTopOf="parent"
@@ -30,6 +36,7 @@
             android:id="@+id/barBottom"
             android:layout_width="@dimen/line_width"
             android:layout_height="0dp"
+            setVisible="@{position != itemCount-1}"
             app:layout_constraintStart_toStartOf="@id/circle"
             app:layout_constraintEnd_toEndOf="@id/circle"
             app:layout_constraintTop_toTopOf="@id/circle"

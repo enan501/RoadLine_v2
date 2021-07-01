@@ -50,8 +50,9 @@ object RecyclerViewBindingAdapter {
                 else
                 // 선택된 날짜의 plan data 가져옴
                     it.daysWithPlans[selectedDay-1].plans
-            )
-
+            ) { (adapter as VerticalPlanListAdapter).notifyDataSetChanged() }
+            // submitList callback 으로 notifyDatasetChanged()를 호출해주어 재활용된 뷰의 bind 함수 호출 안되는 문제 해결
+            // listAdapter 의 장점을 무시하는 코드인 것 같은데 어떻게 해결하면 좋을까?
         }
     }
 }

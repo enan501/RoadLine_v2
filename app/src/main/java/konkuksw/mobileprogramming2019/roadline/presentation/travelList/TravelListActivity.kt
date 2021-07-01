@@ -88,7 +88,7 @@ class TravelListActivity : BaseActivity<ActivityTravelListBinding>(
                     var dialog = BaseDialog.Builder(this@TravelListActivity).create()
                     dialog.setTitle("버전 정보")
                         .setMessage("Ver ${BuildConfig.VERSION_NAME}")
-                        .setOkButton("닫기", { dialog.dismissDialog() })
+                        .setOkButton("닫기") { dialog.dismissDialog() }
                         .show()
                 }
             }
