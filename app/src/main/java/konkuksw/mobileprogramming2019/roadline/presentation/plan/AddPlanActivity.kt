@@ -1,5 +1,6 @@
 package konkuksw.mobileprogramming2019.roadline.presentation.plan
 
+import android.os.Parcelable
 import android.util.Log
 import android.view.MenuItem
 import androidx.activity.viewModels
@@ -15,6 +16,7 @@ import com.google.android.libraries.places.api.model.Place
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 import konkuksw.mobileprogramming2019.roadline.R
+import konkuksw.mobileprogramming2019.roadline.data.entity.Plan
 import konkuksw.mobileprogramming2019.roadline.databinding.ActivityAddPlanBinding
 import konkuksw.mobileprogramming2019.roadline.global.extension.hourMinToTotalMin
 import konkuksw.mobileprogramming2019.roadline.presentation.base.BaseActivity
@@ -33,8 +35,8 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
         intent.getIntExtra("dayId", -1)
     }
 
-    private val planId by lazy {
-        intent.getIntExtra("planId", -1)
+    private val plan by lazy {
+        intent.getParcelableExtra<Plan>("plan")
     }
     private val autoCompleteFragment by lazy {
         supportFragmentManager.findFragmentById(R.id.fragName) as AutocompleteSupportFragment
@@ -61,8 +63,7 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
 
     override fun initView() {
         binding.viewModel = viewModel
-
-        if(planId == -1){
+        if(plan == null){
             binding.toolbar.title = "일정 추가"
             binding.timePicker.isEnabled = false
         }
@@ -97,7 +98,7 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
                 time = hourMinToTotalMin(binding.timePicker.hour, binding.timePicker.minute)
             }
             if(viewModel.spotName.isNotEmpty()) {
-                if(planId == -1) { // 추가
+                if(plan == null) { // 추가
                     viewModel.addPlan(
                         dayId,
                         binding.titleEditText.text.toString(),
@@ -107,7 +108,7 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
                 }
                 else{ // 수정
                     viewModel.editPlan(
-                        planId,
+                        plan.id!!,
                         binding.titleEditText.text.toString(),
                         time,
                         binding.memoEditText.text.toString()
@@ -120,7 +121,7 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
     }
 
     private fun initMap() {
-        if(planId == -1) { // 추가
+        if(plan == null) { // 추가
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(37.552420, 126.984719),12f))
         }
         else { // 수정

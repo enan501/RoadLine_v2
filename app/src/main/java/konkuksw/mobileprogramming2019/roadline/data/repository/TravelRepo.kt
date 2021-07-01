@@ -11,6 +11,7 @@ import konkuksw.mobileprogramming2019.roadline.data.relation.TravelWithDays
 import konkuksw.mobileprogramming2019.roadline.data.relation.TravelWithDaysAndPlans
 import konkuksw.mobileprogramming2019.roadline.global.MyApplication
 import konkuksw.mobileprogramming2019.roadline.global.extension.daysBetween
+import java.time.LocalDate
 
 class TravelRepo(application: Application) {
     private val travelDao: TravelDao by lazy {
@@ -35,6 +36,7 @@ class TravelRepo(application: Application) {
 
     suspend fun updateTravel(travel: Travel) {
         travelDao.updateTravel(travel)
+
     }
 
 

@@ -13,4 +13,8 @@
     <string name="fri">금</string>
     <string name="sat">토</string>
     <string name="sun">일</string>
+
+    <string name="select_date_guide">날짜를 선택하세요</string>
+    <string name="input_title_guide">여행 제목을 입력해주세요</string>
+    <string name="input_date_guide">여행 날짜를 입력해주세요</string>
 </resources>

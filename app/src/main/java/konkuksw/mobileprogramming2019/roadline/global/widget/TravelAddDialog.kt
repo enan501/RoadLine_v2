@@ -13,6 +13,7 @@ import android.view.View
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import androidx.constraintlayout.widget.ConstraintLayout
+import konkuksw.mobileprogramming2019.roadline.R
 import konkuksw.mobileprogramming2019.roadline.data.entity.Travel
 import konkuksw.mobileprogramming2019.roadline.databinding.DialogTravelAddBinding
 import konkuksw.mobileprogramming2019.roadline.global.extension.periodToString
@@ -29,9 +30,15 @@ class TravelAddDialog(context: Context): Dialog(context) {
         private val dialog = TravelAddDialog(mContext)
         private var dateStart: LocalDate? = null
         private var dateEnd: LocalDate? = null
-        fun create(): Builder {
+        fun create(travel:Travel?=null): Builder {
             dialog.create()
             dialog.setContentView(dialog.binding.root)
+            travel?.let{
+                dialog.binding.travel = it
+                dateStart = it.dateStart
+                dateEnd = it.dateEnd
+            }
+
             dialog.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             var size = Point()
             dialog.window!!.windowManager.defaultDisplay.getSize(size)
@@ -43,14 +50,32 @@ class TravelAddDialog(context: Context): Dialog(context) {
 
             dialog.binding.btnOk.setOnClickListener {
                 val title = dialog.binding.tvTravelTitle.text.toString()
-                if (dateStart != null && dateEnd != null) {
-                    viewModel.addTravel(Travel(title = title, dateStart = dateStart!!, dateEnd = dateEnd!!))
+                val guideDialog = BaseDialog.Builder(mContext).create().setTitle("알림")
+
+                if(title.isEmpty())
+                    guideDialog.setMessage(mContext.getString(R.string.input_title_guide))
+                        .setOkButton("닫기") {guideDialog.dismissDialog() }
+                        .show()
+                else if(dateStart == null || dateEnd == null)
+                    guideDialog.setMessage(mContext.getString(R.string.input_date_guide))
+                        .setOkButton("닫기") { guideDialog.dismissDialog() }
+                        .show()
+                else {
+                    if(travel == null) {
+                        viewModel.addTravel(
+                            Travel(title = title, dateStart = dateStart!!, dateEnd = dateEnd!!)
+                        )
+                    } else {
+                        travel.title = title
+                        travel.dateStart = dateStart!!
+                        travel.dateEnd = dateEnd!!
+                        viewModel.editTravel(travel)
+                    }
+                    dismissDialog()
                 }
-                // 화폐 추가
-                dismissDialog()
             }
 
-            dialog.binding.tvDatePick.setOnClickListener {
+            dialog.binding.tvDate.setOnClickListener {
                 makeCalendarDialog()
             }
 
@@ -64,7 +89,7 @@ class TravelAddDialog(context: Context): Dialog(context) {
                 dateEnd = calendarDialog.getEndDate()
                 calendarDialog.dismissDialog()
                 if (dateStart != null && dateEnd != null) {
-                    dialog.binding.tvDatePick.text = periodToString(dateStart!!, dateEnd!!)
+                    dialog.binding.tvDate.text = periodToString(dateStart!!, dateEnd!!)
                 }
             }
             dateStart?.let { calendarDialog.setStartDate(dateStart!!) }

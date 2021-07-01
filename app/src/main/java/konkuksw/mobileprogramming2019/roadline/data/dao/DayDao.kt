@@ -1,7 +1,6 @@
 package konkuksw.mobileprogramming2019.roadline.data.dao
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.room.*
 import konkuksw.mobileprogramming2019.roadline.data.entity.Day
 import konkuksw.mobileprogramming2019.roadline.data.entity.Travel

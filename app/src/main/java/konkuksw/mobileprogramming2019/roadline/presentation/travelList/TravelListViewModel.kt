@@ -24,6 +24,14 @@ class TravelListViewModel(application: Application) : BaseViewModel(application)
     }
 
     fun editTravel(travel: Travel){
+        viewModelScope.launch(Dispatchers.IO) {
+            MyApplication.travelRepo.updateTravel(travel)
+        }
+    }
 
+    fun deleteTravel(travel: Travel){
+        viewModelScope.launch(Dispatchers.IO){
+            MyApplication.travelRepo.delete(travel)
+        }
     }
 }

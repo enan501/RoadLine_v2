@@ -4,17 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="konkuksw.mobileprogramming2019.roadline.presentation.plan.PlanViewModel" />
     </data>
 
-    <FrameLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.plan.VerticalPlanFragment">
-        <TextView
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvVerticalPlan"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:text="vert"/>
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            listData="@{viewModel.plansBySelectedDay}"
+            tools:listitem="@layout/item_vertical_plan"/>
 
-    </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
