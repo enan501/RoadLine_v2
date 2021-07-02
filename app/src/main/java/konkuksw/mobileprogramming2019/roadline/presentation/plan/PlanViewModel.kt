@@ -13,7 +13,8 @@ import konkuksw.mobileprogramming2019.roadline.data.relation.TravelWithDays
 import konkuksw.mobileprogramming2019.roadline.global.MyApplication
 import konkuksw.mobileprogramming2019.roadline.presentation.base.BaseViewModel
 
-class PlanViewModel(val travelId: Int) : ViewModel() {
+class PlanViewModel(application: Application, val travelId: Int) : BaseViewModel(application) {
+
     var daysAndPlansByTravel = MyApplication.travelRepo.getTravelWithDaysAndPlans(travelId)
     var selectedDay = MutableLiveData(0)
 
@@ -29,4 +30,10 @@ class PlanViewModel(val travelId: Int) : ViewModel() {
     fun getAllPlans(): LiveData<List<Plan>> {
         return MyApplication.planRepo.getAll()
     }
+
+
+
+
+
+
 }
