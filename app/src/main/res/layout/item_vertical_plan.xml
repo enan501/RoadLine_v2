@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <variable
+            name="viewModel"
+            type="konkuksw.mobileprogramming2019.roadline.presentation.plan.PlanViewModel" />
+        <variable
             name="itemCount"
             type="Integer" />
         <variable
@@ -18,6 +21,7 @@
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:onClick="@{()->listener.onItemClick(plan)}"
+        android:onLongClick="@{()->listener.onItemLongClick(plan)}"
         android:layout_width="wrap_content"
         android:layout_height="50dp">
         <View
@@ -84,23 +88,28 @@
             android:maxLines="1"
             android:paddingHorizontal="5dp"
             android:text="@{plan.name}" android:textSize="17sp"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@id/rs_dragBtn"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@id/btnDrag"
             app:layout_constraintStart_toEndOf="@id/rs_spotTime" app:layout_constraintTop_toTopOf="parent"/>
 
         <ImageView
-            android:id="@+id/rs_dragBtn"
+            android:id="@+id/btnDrag"
+            setTouchListener="@{() -> listener.onItemDrag(plan)}"
+            setVisible="@{!viewModel.editMode}"
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:background="@drawable/drag_icon"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.619" app:layout_constraintStart_toEndOf="@id/rs_spotName"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/rs_spotName"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="invisible" />
 
         <ImageView
-            android:id="@+id/rs_deleteBtn"
+            android:onClick="@{()->viewModel.deletePlan(plan)}"
+            android:id="@+id/btnDelete"
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:visibility="gone"
+            setVisible="@{viewModel.editMode}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/rs_spotName"
             app:layout_constraintTop_toTopOf="parent" app:srcCompat="@drawable/delete"/>

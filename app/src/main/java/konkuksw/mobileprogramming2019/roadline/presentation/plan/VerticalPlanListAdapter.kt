@@ -3,6 +3,7 @@ package konkuksw.mobileprogramming2019.roadline.presentation.plan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.AdapterView
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -20,10 +21,13 @@ class VerticalPlanListAdapter(
 ) {
     interface OnItemClickListener {
         fun onItemClick(plan: Plan)
+        fun onItemLongClick(plan: Plan): Boolean
+        fun onItemDrag(plan: Plan)
     }
 
     inner class PlanViewHolder(var binding: ItemVerticalPlanBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: Plan){
+            binding.viewModel = viewModel
             binding.lifecycleOwner = lifecycleOwner
             binding.plan = item
             binding.listener = onItemClickListener

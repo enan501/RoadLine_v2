@@ -10,17 +10,20 @@
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parentLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".presentation.plan.VerticalPlanFragment">
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvVerticalPlan"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toTopOf="parent"
             app:listData="@{viewModel.daysAndPlansByTravel}"
             app:selectedDay="@{viewModel.selectedDay.intValue()}"
-            tools:listitem="@layout/item_vertical_plan"/>
+            tools:listitem="@layout/item_vertical_plan" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
