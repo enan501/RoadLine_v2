@@ -2,6 +2,7 @@ package konkuksw.mobileprogramming2019.roadline.presentation.plan
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.ViewGroup
 import android.widget.AdapterView
 import androidx.lifecycle.LifecycleOwner
@@ -18,11 +19,12 @@ class VerticalPlanListAdapter(
     private val lifecycleOwner: LifecycleOwner,
     private val onItemClickListener: OnItemClickListener): ListAdapter<Plan, PlanViewHolder>(
     PlanDiffUtil()
-) {
+), ItemTouchHelperListener {
     interface OnItemClickListener {
         fun onItemClick(plan: Plan)
         fun onItemLongClick(plan: Plan): Boolean
-        fun onItemDrag(plan: Plan)
+        fun onItemDrag(plan: Plan, viewHolder: PlanViewHolder)
+        fun onItemDelete(plan: Plan)
     }
 
     inner class PlanViewHolder(var binding: ItemVerticalPlanBinding): RecyclerView.ViewHolder(binding.root) {
@@ -33,6 +35,7 @@ class VerticalPlanListAdapter(
             binding.listener = onItemClickListener
             binding.position = layoutPosition
             binding.itemCount = itemCount
+            binding.viewHolder = this
         }
     }
 
@@ -44,6 +47,18 @@ class VerticalPlanListAdapter(
 
     override fun onBindViewHolder(holder: PlanViewHolder, position: Int) {
         holder.bind(getItem(position))
+    }
+
+    override fun onItemMove(fromPos: Int, toPos: Int): Boolean {
+        val originList = currentList.toMutableList()
+        val item = originList.removeAt(fromPos)
+        originList.add(toPos, item)
+        submitList(originList.toList())
+        return true
+    }
+
+    fun syncPosition() {
+        viewModel.setAllPosition(currentList)
     }
 }
 

@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.animation.ScaleAnimation
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.ItemTouchHelper
 import konkuksw.mobileprogramming2019.roadline.R
 import konkuksw.mobileprogramming2019.roadline.data.entity.Plan
 import konkuksw.mobileprogramming2019.roadline.databinding.FragmentVerticalPlanBinding
@@ -19,38 +20,49 @@ class VerticalPlanFragment : BaseFragment<FragmentVerticalPlanBinding>(
     R.layout.fragment_vertical_plan
 ) {
     val planViewModel: PlanViewModel by activityViewModels()
+    private lateinit var callback: DateItemTouchHelperCallback
+    private lateinit var listAdapter: VerticalPlanListAdapter
+    private lateinit var itemTouchHelper: ItemTouchHelper
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         binding.viewModel = planViewModel
-        binding.rvVerticalPlan.adapter = VerticalPlanListAdapter(planViewModel, requireActivity(),
-        object: VerticalPlanListAdapter.OnItemClickListener{
-            override fun onItemClick(plan: Plan) {
-                // go to AddPlan (edit)
-                if(planViewModel.editMode.value!!){
-                    planViewModel.editMode.value = false
+        listAdapter = VerticalPlanListAdapter(planViewModel, requireActivity(),
+            object: VerticalPlanListAdapter.OnItemClickListener{
+                override fun onItemClick(plan: Plan) {
+                    // go to AddPlan (edit)
+                    if(planViewModel.editMode.value!!){
+                        planViewModel.editMode.value = false
+                    }
+                    else{
+                        val intent = Intent(activity, AddPlanActivity::class.java)
+                        intent.putExtra("plan", plan)
+                        startActivity(intent)
+                    }
+
                 }
-                else{
-                    val intent = Intent(activity, AddPlanActivity::class.java)
-                    intent.putExtra("plan", plan)
-                    startActivity(intent)
+
+                override fun onItemLongClick(plan: Plan): Boolean {
+                    planViewModel.editMode.value = true
+                    return true
                 }
 
-            }
+                override fun onItemDrag(plan: Plan, viewHolder: VerticalPlanListAdapter.PlanViewHolder) {
+                    itemTouchHelper.startDrag(viewHolder)
+                }
 
-            override fun onItemLongClick(plan: Plan): Boolean {
-                planViewModel.editMode.value = true
-                return true
-            }
+                override fun onItemDelete(plan: Plan) {
+                    planViewModel.deletePlan(plan)
 
-            override fun onItemDrag(plan: Plan) {
-                Log.d("mytag", plan.toString())
-            }
-        })
+                }
+            })
+        callback = DateItemTouchHelperCallback(listAdapter)
+        binding.rvVerticalPlan.adapter = listAdapter
+        itemTouchHelper = ItemTouchHelper(callback)
+        itemTouchHelper.attachToRecyclerView(binding.rvVerticalPlan)
 
         binding.parentLayout.setOnClickListener {
             planViewModel.editMode.value = false
         }
-
 
 
         super.onViewCreated(view, savedInstanceState)
@@ -61,6 +73,5 @@ class VerticalPlanFragment : BaseFragment<FragmentVerticalPlanBinding>(
         if(planViewModel.editMode.value!!){
             planViewModel.editMode.value = false
         }
-
     }
 }

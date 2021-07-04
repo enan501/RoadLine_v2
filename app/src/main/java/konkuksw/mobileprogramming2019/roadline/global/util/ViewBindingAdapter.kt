@@ -1,5 +1,7 @@
 package konkuksw.mobileprogramming2019.roadline.global.util
 
+import android.util.Log
+import android.view.MotionEvent
 import android.view.View
 import android.widget.TextView
 import androidx.databinding.BindingAdapter
@@ -21,8 +23,15 @@ object ViewBindingAdapter {
     @BindingAdapter("setTouchListener")
     @JvmStatic
     fun View.setTouchListener(onTouch: ()-> Unit) {
-        this.setOnTouchListener{ _, _->
-            onTouch()
+        this.setOnTouchListener{ _, event->
+            if(event.action == MotionEvent.ACTION_DOWN) {
+                Log.d("mytag", "action down")
+                onTouch()
+            }
+            else if(event.action == MotionEvent.ACTION_UP) {
+                Log.d("mytag", "action up")
+            }
+            performClick()
             false
         }
     }

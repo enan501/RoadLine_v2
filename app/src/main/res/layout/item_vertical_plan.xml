@@ -7,6 +7,9 @@
             name="viewModel"
             type="konkuksw.mobileprogramming2019.roadline.presentation.plan.PlanViewModel" />
         <variable
+            name="viewHolder"
+            type="konkuksw.mobileprogramming2019.roadline.presentation.plan.VerticalPlanListAdapter.PlanViewHolder" />
+        <variable
             name="itemCount"
             type="Integer" />
         <variable
@@ -93,7 +96,7 @@
 
         <ImageView
             android:id="@+id/btnDrag"
-            setTouchListener="@{() -> listener.onItemDrag(plan)}"
+            setTouchListener="@{() -> listener.onItemDrag(plan, viewHolder)}"
             setVisible="@{!viewModel.editMode}"
             android:layout_width="35dp"
             android:layout_height="35dp"
@@ -105,7 +108,7 @@
             tools:visibility="invisible" />
 
         <ImageView
-            android:onClick="@{()->viewModel.deletePlan(plan)}"
+            android:onClick="@{()->listener.onItemDelete(plan)}"
             android:id="@+id/btnDelete"
             android:layout_width="35dp"
             android:layout_height="35dp"
