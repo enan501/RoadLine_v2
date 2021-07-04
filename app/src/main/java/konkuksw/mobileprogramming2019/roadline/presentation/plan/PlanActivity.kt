@@ -34,7 +34,7 @@ class PlanActivity : BaseActivity<ActivityPlanBinding>(
     }
     private val onDayClickListener = object : DayListAdapter.OnItemClickListener {
         override fun onItemClick(dayNum: Int?) {
-            viewModel.selectedDay.postValue(dayNum)
+            viewModel.selectedDay.value = dayNum
 
         }
     }
@@ -104,9 +104,8 @@ class PlanActivity : BaseActivity<ActivityPlanBinding>(
     }
 
     override fun setObserve() {
-        viewModel.getAllPlans().observe(this, { dayWithPlans ->
-            Log.d("mytag", dayWithPlans.toString())
-
+        viewModel.selectedDay.observe(this, {
+            viewModel.editMode.value = false
         })
     }
 
