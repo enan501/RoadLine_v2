@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <variable
+            name="viewModel"
+            type="konkuksw.mobileprogramming2019.roadline.presentation.plan.PlanViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -12,10 +14,13 @@
         android:layout_height="match_parent"
         tools:context=".presentation.plan.HorizontalPlanFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="horizon"/>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvHorizontalPlan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:horizontalListData="@{viewModel.daysAndPlansByTravel}"
+            app:selectedDay="@{viewModel.selectedDay.intValue()}"
+            tools:listitem="@layout/item_horizontal_plan"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
