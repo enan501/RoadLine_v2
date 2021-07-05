@@ -22,13 +22,11 @@ class PlanViewModel(application: Application, val travelId: Int) : BaseViewModel
     var selectedDay = MutableLiveData(0)
     val editMode = MutableLiveData(false)
 
-    fun getSelectedDayId(): Int? {
+    fun getSelectedDayId(): Int {
         daysAndPlansByTravel.value?.let { travel ->
-            selectedDay.value?.let {
-                return travel.daysWithPlans[it-1].day.id
-            }
+            return travel.daysWithPlans[selectedDay.value!!-1].day.id!!
         }
-        return null
+        return -1
     }
 
     fun deletePlan(plan: Plan) {

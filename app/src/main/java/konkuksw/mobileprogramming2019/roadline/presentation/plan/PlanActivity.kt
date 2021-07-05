@@ -1,6 +1,7 @@
 package konkuksw.mobileprogramming2019.roadline.presentation.plan
 
 import android.content.Intent
+import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -68,9 +69,11 @@ class PlanActivity : BaseActivity<ActivityPlanBinding>(
         binding.fabAdd.setOnClickListener {
             // 일정 추가
             val intent = Intent(this@PlanActivity, AddPlanActivity::class.java)
-            intent.putExtra("travelId", travelId)
-            intent.putExtra("dayId", viewModel.getSelectedDayId())
-            intent.putExtra("pos", viewModel.getPlansCountBySelectedDay())
+            val bundle = Bundle()
+            bundle.putInt("dayId", viewModel.getSelectedDayId())
+            bundle.putInt("pos", viewModel.getPlansCountBySelectedDay())
+            intent.putExtra("bundle_add", bundle)
+
             startActivity(intent)
         }
 

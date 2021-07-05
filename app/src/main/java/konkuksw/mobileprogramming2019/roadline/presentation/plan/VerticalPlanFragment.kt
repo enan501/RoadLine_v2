@@ -35,7 +35,9 @@ class VerticalPlanFragment : BaseFragment<FragmentVerticalPlanBinding>(
                     }
                     else{
                         val intent = Intent(activity, AddPlanActivity::class.java)
-                        intent.putExtra("plan", plan)
+                        val bundle = Bundle()
+                        bundle.putParcelable("plan", plan)
+                        intent.putExtra("bundle_edit", bundle)
                         startActivity(intent)
                     }
 

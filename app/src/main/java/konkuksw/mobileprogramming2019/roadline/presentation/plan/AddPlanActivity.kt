@@ -32,21 +32,26 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
 ) {
     private lateinit var viewModel: AddPlanViewModel
 
-    private val travelId by lazy {
-        intent.getIntExtra("travelId", -1)
+    private val bundleAdd by lazy {
+        intent.getBundleExtra("bundle_add")
+    }
+
+    private val bundleEdit by lazy {
+        intent.getBundleExtra("bundle_edit")
     }
 
     private val dayId by lazy {
-        intent.getIntExtra("dayId", -1)
+        bundleAdd.getInt("dayId", -1)
     }
 
     private val pos by lazy {
-        intent.getIntExtra("pos", -1)
+        bundleAdd.getInt("pos")
     }
 
     private val plan by lazy {
-        intent.getParcelableExtra<Plan>("plan")
+        bundleEdit?.getParcelable<Plan>("plan")
     }
+
     private val autoCompleteFragment by lazy {
         supportFragmentManager.findFragmentById(R.id.fragName) as AutocompleteSupportFragment
     }
@@ -72,20 +77,21 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
         binding.viewModel = viewModel
         binding.timePicker.isEnabled = false
 
-        if(plan == null){
+        if(bundleAdd != null){
             binding.toolbar.title = "일정 추가"
             binding.timePicker.isEnabled = false
         }
-        else{
+        if(bundleEdit != null) {
             binding.toolbar.title = "일정 수정"
-            searchBox.setText(plan.name)
-            plan.time?.let {
+            searchBox.setText(plan!!.name)
+            plan!!.time?.let {
                 binding.timePicker.isEnabled = true
                 binding.swTime.isChecked = true
                 binding.timePicker.hour = totalMinToHour(it)
                 binding.timePicker.minute = totalMinToMin(it)
             }
         }
+
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
 
@@ -104,18 +110,11 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
             if(binding.swTime.isChecked) {
                 time = hourMinToTotalMin(binding.timePicker.hour, binding.timePicker.minute)
             }
-            if(plan == null) { // 추가
-                viewModel.addPlan(
-                    dayId,
-                    time,
-                    pos
-                )
+            if(bundleAdd != null) { // 추가
+                viewModel.addPlan(dayId, time, pos)
             }
-            else{ // 수정
-                viewModel.editPlan(
-                    plan.id!!,
-                    time
-                )
+            if(bundleEdit != null) {
+                viewModel.editPlan(plan!!.id!!, time)
             }
             finish()
         }
