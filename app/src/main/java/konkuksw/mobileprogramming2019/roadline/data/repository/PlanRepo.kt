@@ -1,7 +1,9 @@
 package konkuksw.mobileprogramming2019.roadline.data.repository
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.LiveData
+import androidx.room.Transaction
 import konkuksw.mobileprogramming2019.roadline.data.dao.PlanDao
 import konkuksw.mobileprogramming2019.roadline.data.entity.Plan
 import konkuksw.mobileprogramming2019.roadline.global.MyApplication
@@ -22,9 +24,16 @@ class PlanRepo(application: Application) {
         planDao.updatePlan(planId, name, nameAlter, locationX, locationY, time, memo)
     }
 
-    suspend fun updatePlanPos(planId: Int, pos: Int) {
+    private fun updatePlanPos(planId: Int, pos: Int) {
         planDao.updatePlanPos(planId, pos)
     }
+
+    suspend fun updatePlanPosRange(list: List<Plan>, startPos: Int, endPos: Int) {
+        for(i in startPos..endPos) {
+            updatePlanPos(list[i].id!!, i)
+        }
+    }
+
 
     suspend fun updatePlan(Plan: Plan) {
         planDao.updatePlan(Plan)

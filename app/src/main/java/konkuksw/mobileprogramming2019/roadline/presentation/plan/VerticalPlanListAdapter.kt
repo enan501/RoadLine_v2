@@ -57,8 +57,9 @@ class VerticalPlanListAdapter(
         return true
     }
 
-    fun syncPosition() {
-        viewModel.setAllPosition(currentList)
+
+    fun updatePosition(startPos: Int, endPos: Int) {
+        viewModel.updatePosition(currentList, startPos, endPos)
     }
 }
 

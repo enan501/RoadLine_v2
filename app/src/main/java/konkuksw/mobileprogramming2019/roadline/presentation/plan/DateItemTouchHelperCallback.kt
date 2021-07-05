@@ -10,12 +10,9 @@ interface ItemTouchHelperListener {
 
 class DateItemTouchHelperCallback(private val adapter: VerticalPlanListAdapter) :ItemTouchHelper.Callback(){
 
-//    private val POSITION_UNKNOWN = -1
-//    private var originPosition = POSITION_UNKNOWN
-//    private var oldPosition = POSITION_UNKNOWN
-//    private var newPosition = POSITION_UNKNOWN
-//    var dateListAdapter = adapter
-//    var context = context
+    private var startPos = -1
+    private var endPos = -1
+    private var isStart = true
 
     override fun getMovementFlags(
         recyclerView: RecyclerView,
@@ -35,21 +32,22 @@ class DateItemTouchHelperCallback(private val adapter: VerticalPlanListAdapter) 
     }
 
     override fun onMove(p0: RecyclerView, p1: RecyclerView.ViewHolder, p2: RecyclerView.ViewHolder): Boolean {
-//        Log.d("mytag", p1.bindingAdapterPosition.toString() + p2.bindingAdapterPosition.toString())
         adapter.onItemMove(p1.bindingAdapterPosition, p2.bindingAdapterPosition)
+        if(isStart){
+            startPos = p1.bindingAdapterPosition
+            isStart = false
+        }
+        endPos = p2.bindingAdapterPosition
         return false
     }
 
     override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
-//        if(newPosition == dateListAdapter.itemCount-1) newPosition--
-//        dateListAdapter.onAttachedToRecyclerView(recyclerView)
-//        dateListAdapter.moveItem(originPosition, newPosition)
-//        oldPosition = POSITION_UNKNOWN;
-//        newPosition = POSITION_UNKNOWN;
-//        originPosition = POSITION_UNKNOWN;
-        if (recyclerView.adapter is VerticalPlanListAdapter) {
-            (recyclerView.adapter as VerticalPlanListAdapter).syncPosition()
+        if(startPos != endPos) {
+            if (recyclerView.adapter is VerticalPlanListAdapter) {
+                (recyclerView.adapter as VerticalPlanListAdapter).updatePosition(startPos, endPos)
+            }
         }
+        isStart = true
         super.clearView(recyclerView, viewHolder)
     }
 

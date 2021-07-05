@@ -50,10 +50,10 @@ object RecyclerViewBindingAdapter {
 
                 vpAdapter.submitList(
                     if (selectedDay == 0)
-                        it.daysWithPlans.flatMap { dwp -> dwp.plans }
+                        it.daysWithPlans.flatMap { dwp -> dwp.plans.sortedBy { it.pos } }
                     else
                     // 선택된 날짜의 plan data 가져옴
-                        it.daysWithPlans[selectedDay - 1].plans
+                        it.daysWithPlans[selectedDay - 1].plans.sortedBy { it.pos }
                 ) {
                     if (selectedDay == 0) {
                         val startPos = vpAdapter.currentList.indexOfFirst{plan -> plan.dayId == originDayId}

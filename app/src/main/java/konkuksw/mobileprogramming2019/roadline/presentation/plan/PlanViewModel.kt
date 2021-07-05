@@ -35,20 +35,24 @@ class PlanViewModel(application: Application, val travelId: Int) : BaseViewModel
         }
     }
 
-    fun setAllPosition(currentList: List<Plan>) {
-        viewModelScope.launch(Dispatchers.IO) {
-            Log.d("mytag","before : "+ currentList.map { it.pos }.toString())
-            for(i in currentList.indices) {
-                MyApplication.planRepo.updatePlanPos(currentList[i].id!!, i)
-            }
-            Log.d("mytag","after : "+  currentList.map { it.pos }.toString())
-        }
-    }
 
     fun getPlansCountBySelectedDay(): Int {
         daysAndPlansByTravel.value?.let {
             return it.daysWithPlans[selectedDay.value!! - 1].plans.size
         }
         return 0
+    }
+
+    fun updatePosition(currentList: List<Plan>, startPos: Int, endPos: Int) {
+
+        viewModelScope.launch(Dispatchers.IO) {
+            MyApplication.planRepo.updatePlanPosRange(currentList, startPos, endPos)
+            if(startPos < endPos) {
+                MyApplication.planRepo.updatePlanPosRange(currentList, startPos, endPos)
+            }
+            else{
+                MyApplication.planRepo.updatePlanPosRange(currentList, endPos, startPos)
+            }
+        }
     }
 }
