@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import konkuksw.mobileprogramming2019.roadline.data.entity.Plan
 import konkuksw.mobileprogramming2019.roadline.databinding.ItemDateButtonBinding
 import konkuksw.mobileprogramming2019.roadline.databinding.ItemVerticalPlanBinding
+import konkuksw.mobileprogramming2019.roadline.global.extension.totalMinToString
 import konkuksw.mobileprogramming2019.roadline.presentation.plan.VerticalPlanListAdapter.*
 
 class VerticalPlanListAdapter(
@@ -32,6 +33,7 @@ class VerticalPlanListAdapter(
             binding.viewModel = viewModel
             binding.lifecycleOwner = lifecycleOwner
             binding.plan = item
+            binding.time = totalMinToString(item.time)
             binding.listener = onItemClickListener
             binding.position = layoutPosition
             binding.itemCount = itemCount

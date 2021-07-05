@@ -19,8 +19,14 @@
             name="plan"
             type="konkuksw.mobileprogramming2019.roadline.data.entity.Plan" />
         <variable
+            name="time"
+            type="String" />
+        <variable
             name="listener"
             type="konkuksw.mobileprogramming2019.roadline.presentation.plan.VerticalPlanListAdapter.OnItemClickListener" />
+        <variable
+            name="extension"
+            type="konkuksw.mobileprogramming2019.roadline.global.extension.ExtensionsKt" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:onClick="@{()->listener.onItemClick(plan)}"
@@ -67,6 +73,8 @@
             app:layout_constraintBottom_toBottomOf="parent"/>
 
         <TextView
+            setVisible="@{plan.time != null}"
+            android:text="@{time}"
             android:id="@+id/rs_spotTime"
             android:layout_width="50dp"
             android:layout_height="match_parent"
@@ -77,9 +85,12 @@
             android:paddingHorizontal="5dp"
             android:textColor="@color/colorPrimary"
             android:textSize="13sp"
-            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toStartOf="@+id/rs_spotName"
-            app:layout_constraintHorizontal_chainStyle="spread" app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/rs_spotName"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toEndOf="@+id/circle"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="12:00" />
         <TextView
             android:id="@+id/rs_spotName"
             android:layout_width="0dp"

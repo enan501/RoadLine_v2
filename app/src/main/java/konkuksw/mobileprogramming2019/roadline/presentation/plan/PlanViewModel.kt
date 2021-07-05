@@ -44,7 +44,6 @@ class PlanViewModel(application: Application, val travelId: Int) : BaseViewModel
     }
 
     fun updatePosition(currentList: List<Plan>, startPos: Int, endPos: Int) {
-
         viewModelScope.launch(Dispatchers.IO) {
             MyApplication.planRepo.updatePlanPosRange(currentList, startPos, endPos)
             if(startPos < endPos) {

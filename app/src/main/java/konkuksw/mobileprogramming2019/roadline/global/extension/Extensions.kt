@@ -32,6 +32,13 @@ fun totalMinToMin(totalMin: Int): Int {
     return totalMin % 60
 }
 
+fun totalMinToString(totalMin: Int?): String {
+    totalMin?.let {
+        return totalMinToHour(it).toString() + ":" + totalMinToMin(it).toString()
+    }
+    return ""
+}
+
 internal fun TextView.setTextColorRes(@ColorRes color: Int) = setTextColor(context.getColorCompat(color))
 internal fun Context.getDrawableCompat(@DrawableRes drawable: Int) = ContextCompat.getDrawable(this, drawable)
 internal fun Context.getColorCompat(@ColorRes color: Int) = ContextCompat.getColor(this, color)
