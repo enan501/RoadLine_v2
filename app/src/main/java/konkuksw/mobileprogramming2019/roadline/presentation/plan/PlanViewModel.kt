@@ -47,4 +47,10 @@ class PlanViewModel(application: Application, val travelId: Int) : BaseViewModel
         }
     }
 
+    fun getPlansCountBySelectedDay(): Int {
+        daysAndPlansByTravel.value?.let {
+            return it.daysWithPlans[selectedDay.value!! - 1].plans.size
+        }
+        return 0
+    }
 }

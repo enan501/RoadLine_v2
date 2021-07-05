@@ -36,7 +36,6 @@ class AddPlanViewModel(application: Application, var plan: Plan?) : BaseViewMode
     lateinit var googleMap: GoogleMap
     private val markerIcon = Bitmap.createScaledBitmap(markerBitmap, 71, 100, false)
 
-
     override fun onMapReady(p0: GoogleMap) {
         googleMap = p0
         if(plan == null) { // 추가
@@ -63,7 +62,7 @@ class AddPlanViewModel(application: Application, var plan: Plan?) : BaseViewMode
         locationX = (place.latLng as LatLng).longitude
     }
 
-    fun addPlan(dayId: Int, time: Int?) {
+    fun addPlan(dayId: Int, time: Int?, pos: Int) {
         spotName?.let {
             viewModelScope.launch(Dispatchers.IO) {
                 val plan = Plan(
@@ -74,7 +73,7 @@ class AddPlanViewModel(application: Application, var plan: Plan?) : BaseViewMode
                     locationY = locationY,
                     time = time,
                     memo = memo.value,
-                    pos = getPlansCountByDayId(dayId)
+                    pos = pos
                 )
                 MyApplication.planRepo.insert(plan)
             }
@@ -98,15 +97,5 @@ class AddPlanViewModel(application: Application, var plan: Plan?) : BaseViewMode
         }
     }
 
-    private fun getPlansCountByDayId(dayId: Int): Int {
-        MyApplication.dayRepo.getDayWithPlans(dayId).value?.let {
-            return it.plans.size
-        }
-        return 0
-    }
-
-    fun getAllPlans(dayId: Int): LiveData<DayWithPlans> {
-        return MyApplication.dayRepo.getDayWithPlans(dayId)
-    }
 
 }

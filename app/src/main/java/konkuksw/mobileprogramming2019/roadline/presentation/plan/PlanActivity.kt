@@ -70,6 +70,7 @@ class PlanActivity : BaseActivity<ActivityPlanBinding>(
             val intent = Intent(this@PlanActivity, AddPlanActivity::class.java)
             intent.putExtra("travelId", travelId)
             intent.putExtra("dayId", viewModel.getSelectedDayId())
+            intent.putExtra("pos", viewModel.getPlansCountBySelectedDay())
             startActivity(intent)
         }
 

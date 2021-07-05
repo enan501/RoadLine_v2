@@ -40,6 +40,10 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
         intent.getIntExtra("dayId", -1)
     }
 
+    private val pos by lazy {
+        intent.getIntExtra("pos", -1)
+    }
+
     private val plan by lazy {
         intent.getParcelableExtra<Plan>("plan")
     }
@@ -103,7 +107,8 @@ class AddPlanActivity : BaseActivity<ActivityAddPlanBinding>(
             if(plan == null) { // 추가
                 viewModel.addPlan(
                     dayId,
-                    time
+                    time,
+                    pos
                 )
             }
             else{ // 수정
