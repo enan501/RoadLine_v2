@@ -108,14 +108,16 @@
             tools:visibility="invisible" />
 
         <ImageView
-            android:onClick="@{()->listener.onItemDelete(plan)}"
             android:id="@+id/btnDelete"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
             setVisible="@{viewModel.editMode}"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:onClick="@{()->listener.onItemDelete(plan)}"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/rs_spotName"
-            app:layout_constraintTop_toTopOf="parent" app:srcCompat="@drawable/delete"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/rs_spotName"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/delete" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

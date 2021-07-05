@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import konkuksw.mobileprogramming2019.roadline.R
 import konkuksw.mobileprogramming2019.roadline.data.entity.Plan
 import konkuksw.mobileprogramming2019.roadline.databinding.FragmentVerticalPlanBinding
+import konkuksw.mobileprogramming2019.roadline.global.widget.BaseDialog
 import konkuksw.mobileprogramming2019.roadline.presentation.base.BaseFragment
 
 
@@ -53,7 +54,19 @@ class VerticalPlanFragment : BaseFragment<FragmentVerticalPlanBinding>(
                 }
 
                 override fun onItemDelete(plan: Plan) {
-                    planViewModel.deletePlan(plan)
+                    val builder = BaseDialog.Builder(requireContext()).create()
+                    builder.setTitle("알림")
+                        .setMessage("이 항목을 삭제할까요?")
+                        .setOkButton {
+                            planViewModel.deletePlan(plan)
+                            planViewModel.editMode.value = false
+                            builder.dismissDialog()
+                        }
+                        .setCancelButton {
+                            planViewModel.editMode.value = false
+                            builder.dismissDialog()
+                        }
+                        .show()
 
                 }
             })
