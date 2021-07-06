@@ -1,19 +1,15 @@
 package konkuksw.mobileprogramming2019.roadline.presentation.plan
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.recyclerview.widget.GridLayoutManager
 import konkuksw.mobileprogramming2019.roadline.R
 import konkuksw.mobileprogramming2019.roadline.data.entity.Plan
 import konkuksw.mobileprogramming2019.roadline.databinding.FragmentHorizontalPlanBinding
 import konkuksw.mobileprogramming2019.roadline.global.util.GridLayoutManagerWrapper
 import konkuksw.mobileprogramming2019.roadline.presentation.base.BaseFragment
+import konkuksw.mobileprogramming2019.roadline.presentation.plan.adapter.HorizontalPlanListAdapter
 
 class HorizontalPlanFragment : BaseFragment<FragmentHorizontalPlanBinding>(
     R.layout.fragment_horizontal_plan

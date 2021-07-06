@@ -23,18 +23,19 @@ class VerticalPlanFragment : BaseFragment<FragmentVerticalPlanBinding>(
     val planViewModel: PlanViewModel by activityViewModels()
     private lateinit var callback: DateItemTouchHelperCallback
     private lateinit var listAdapter: VerticalPlanListAdapter
+    private val iconListAdapter by lazy { VerticalPlanIconListAdapter() }
     private lateinit var itemTouchHelper: ItemTouchHelper
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.viewModel = planViewModel
+        binding.iconListAdapter = iconListAdapter
         listAdapter = VerticalPlanListAdapter(planViewModel, requireActivity(),
-            object: VerticalPlanListAdapter.OnItemClickListener{
+            object : VerticalPlanListAdapter.OnItemClickListener {
                 override fun onItemClick(plan: Plan) {
                     // go to AddPlan (edit)
-                    if(planViewModel.editMode.value!!){
+                    if (planViewModel.editMode.value!!) {
                         planViewModel.editMode.value = false
-                    }
-                    else{
+                    } else {
                         val intent = Intent(activity, AddPlanActivity::class.java)
                         val bundle = Bundle()
                         bundle.putParcelable("plan", plan)
@@ -49,7 +50,10 @@ class VerticalPlanFragment : BaseFragment<FragmentVerticalPlanBinding>(
                     return true
                 }
 
-                override fun onItemDrag(plan: Plan, viewHolder: VerticalPlanListAdapter.PlanViewHolder) {
+                override fun onItemDrag(
+                    plan: Plan,
+                    viewHolder: VerticalPlanListAdapter.PlanViewHolder
+                ) {
                     itemTouchHelper.startDrag(viewHolder)
                 }
 
@@ -72,6 +76,7 @@ class VerticalPlanFragment : BaseFragment<FragmentVerticalPlanBinding>(
             })
         callback = DateItemTouchHelperCallback(listAdapter)
         binding.rvVerticalPlan.adapter = listAdapter
+        binding.rvVerticalPlanIcon.adapter = iconListAdapter
         itemTouchHelper = ItemTouchHelper(callback)
         itemTouchHelper.attachToRecyclerView(binding.rvVerticalPlan)
 
@@ -85,7 +90,7 @@ class VerticalPlanFragment : BaseFragment<FragmentVerticalPlanBinding>(
 
     override fun onPause() {
         super.onPause()
-        if(planViewModel.editMode.value!!){
+        if (planViewModel.editMode.value!!) {
             planViewModel.editMode.value = false
         }
     }

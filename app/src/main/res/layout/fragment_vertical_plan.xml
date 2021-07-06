@@ -7,23 +7,46 @@
         <variable
             name="viewModel"
             type="konkuksw.mobileprogramming2019.roadline.presentation.plan.PlanViewModel" />
+
+        <variable
+            name="iconListAdapter"
+            type="konkuksw.mobileprogramming2019.roadline.presentation.plan.VerticalPlanIconListAdapter" />
+
     </data>
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/parentLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         tools:context=".presentation.plan.VerticalPlanFragment">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvVerticalPlan"
-            android:layout_width="match_parent"
+            android:id="@+id/rvVerticalPlanIcon"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:verticalListData="@{viewModel.daysAndPlansByTravel}"
+            tools:listitem="@layout/item_vertical_plan_icon" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvVerticalPlan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:iconListAdapter="@{iconListAdapter}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/rvVerticalPlanIcon"
+            app:layout_constraintTop_toTopOf="parent"
             app:selectedDay="@{viewModel.selectedDay.intValue()}"
+            app:verticalListData="@{viewModel.daysAndPlansByTravel}"
             tools:listitem="@layout/item_vertical_plan" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+
 </layout>

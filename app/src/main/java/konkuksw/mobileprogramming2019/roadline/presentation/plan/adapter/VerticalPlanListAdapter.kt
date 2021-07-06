@@ -35,8 +35,6 @@ class VerticalPlanListAdapter(
             binding.plan = item
             binding.time = totalMinToString(item.time)
             binding.listener = onItemClickListener
-            binding.position = layoutPosition
-            binding.itemCount = itemCount
             binding.viewHolder = this
         }
     }

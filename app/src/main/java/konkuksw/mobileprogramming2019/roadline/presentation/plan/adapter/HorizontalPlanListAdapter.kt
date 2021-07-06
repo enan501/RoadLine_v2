@@ -1,16 +1,15 @@
-package konkuksw.mobileprogramming2019.roadline.presentation.plan
+package konkuksw.mobileprogramming2019.roadline.presentation.plan.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.lifecycle.LifecycleOwner
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import konkuksw.mobileprogramming2019.roadline.data.entity.Plan
-import konkuksw.mobileprogramming2019.roadline.databinding.ItemDateButtonBinding
 import konkuksw.mobileprogramming2019.roadline.databinding.ItemHorizontalPlanBinding
-import konkuksw.mobileprogramming2019.roadline.presentation.plan.HorizontalPlanListAdapter.*
+import konkuksw.mobileprogramming2019.roadline.presentation.plan.PlanDiffUtil
+import konkuksw.mobileprogramming2019.roadline.presentation.plan.PlanViewModel
+import konkuksw.mobileprogramming2019.roadline.presentation.plan.adapter.HorizontalPlanListAdapter.*
 
 class HorizontalPlanListAdapter(
     private val viewModel: PlanViewModel,
